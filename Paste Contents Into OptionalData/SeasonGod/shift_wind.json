@@ -1,0 +1,27 @@
+{
+	"id": "comseason.shift_wind",
+	"modCredit": "",
+	"imgCredit": "A fight in an inn by Jan van der Venne",
+	"image": "default.0_abyssalFaith.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 1,
+
+	"name": "The Windy Season",
+	"description": "Placeholder event for when you switch to the Painter of Winds.",
+
+	"choices": [
+		{
+			"name": "She is very mysterious",
+			"description":"The Painter of Winds is now active",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}

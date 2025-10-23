@@ -1,0 +1,22 @@
+{
+	"options":[
+		{
+			"name":"Season Length",
+			"description":"The number of turns that normally pass before a new Noble takes their turn (defaults to 80)",
+			"isInteger":"true",
+			"minValue":1,
+			"maxValue":500,
+			"defaultValue":80
+		},
+		{
+			"name":"Master of the Hunt Enabled",
+			"description":"A Fey Noble who empowers heroes and agents to do great and terrible deeds (defaults to true)",
+			"defaultBoolValue":"true"
+		},
+		{
+			"name":"Painter of Winds Enabled",
+			"description":"A Fey Noble who spreads darkness and chaos from place to place on the currents of wind (defaults to true)",
+			"defaultBoolValue":"true"
+		}
+	]
+}

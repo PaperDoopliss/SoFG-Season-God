@@ -1,0 +1,27 @@
+{
+	"id": "comseason.shift_hunt",
+	"modCredit": "",
+	"imgCredit": "A fight in an inn by Jan van der Venne",
+	"image": "default.0_abyssalFaith.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 1,
+
+	"name": "The Hunting Season",
+	"description": "Placeholder event for when you switch to the Master of the Hunt.",
+
+	"choices": [
+		{
+			"name": "He is very edgy",
+			"description":"The Master of the Hunt is now active",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}
