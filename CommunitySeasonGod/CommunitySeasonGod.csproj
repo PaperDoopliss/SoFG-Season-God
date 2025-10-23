@@ -58,7 +58,7 @@
     <Compile Include="P_Season_LimitedPower.cs" />
     <Compile Include="P_Season_PickAgain.cs" />
     <Compile Include="P_Season_SubGodPower.cs" />
-    <Compile Include="Season_SubGod.cs" />
+    <Compile Include="SubGod.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,9 +9,8 @@ namespace CommunitySeasonGod
 {
 
     //An aspect of the Season God with a unique power suite and other potential unique effects
-    public class Season_SubGod
+    public class SubGod
     {
-
         //The SubGod-unique powers that get added when shifting to that season and removed when shifting out
         public List<P_Season_SubGodPower> powers = new List<P_Season_SubGodPower>();
         public List<int> powerLevelReqs = new List<int>();
@@ -47,16 +46,6 @@ namespace CommunitySeasonGod
         //If blank, a generic contextual message displays if this SubGod is active upon victory
         public virtual string GetVictoryMessage() { return ""; }
 
-        public virtual void OnActivate(Map map, Season_SubGod previousSubGod, bool enteredNaturally)
-        {
-
-        }
-
-        public virtual void OnDeactivate(Map map, Season_SubGod nextSubGod, bool exitedNaturally)
-        {
-
-        }
-
         public virtual void TurnTick_Active(Map map)
         {
 
@@ -69,23 +58,21 @@ namespace CommunitySeasonGod
         }
 
         //Override this if you want your god to make something happen on god transitions that might not involve them at all
-        public virtual void OnSubGodTransition(Map map, Season_SubGod oldSubGod, Season_SubGod newSubGod, bool transitionedNaturally)
-        {
-            if (oldSubGod == this)
-            {
-                OnDeactivate(map, newSubGod, transitionedNaturally);
-            }
-            if (newSubGod == this)
-            {
-                OnActivate(map, oldSubGod, transitionedNaturally);
-            }
-        }
-
-        //If you're implementing OnActivate effects, undo them from the map here if the player changes their mind about picking this SubGod
-        public virtual void UndoActivation(Map map, bool activatedNaturally)
+        #region Season Transition
+        public virtual void OnSubGodTransition(Map map, SubGod oldSubGod, SubGod newSubGod, bool transitionedNaturally)
         {
 
         }
 
+        public virtual void OnActivate(Map map, SubGod previousSubGod, bool enteredNaturally)
+        {
+
+        }
+
+        public virtual void OnDeactivate(Map map, SubGod nextSubGod, bool exitedNaturally)
+        {
+
+        }
+        #endregion
     }
 }

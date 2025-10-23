@@ -1,8 +1,13 @@
 {
 	"options":[
 		{
+			"name":"Deck of Seasons",
+			"description":"If enabled, the random season changes will be drawn from a deck containing each season only once. The deck will be reshuffled only after all seasons have appeared once. Otherwise, selection will be random.",
+			"defaultBoolValue":"true"
+		}
+		{
 			"name":"Season Length",
-			"description":"The number of turns that normally pass before a new Noble takes their turn (defaults to 80)",
+			"description":"The number of turns that normally pass before a new Noble takes their turn (default: 80)",
 			"isInteger":"true",
 			"minValue":1,
 			"maxValue":500,
@@ -10,12 +15,12 @@
 		},
 		{
 			"name":"Master of the Hunt Enabled",
-			"description":"A Fey Noble who empowers heroes and agents to do great and terrible deeds (defaults to true)",
+			"description":"A Fey Noble who empowers heroes and agents to do great and terrible deeds (default: true)",
 			"defaultBoolValue":"true"
 		},
 		{
 			"name":"Painter of Winds Enabled",
-			"description":"A Fey Noble who spreads darkness and chaos from place to place on the currents of wind (defaults to true)",
+			"description":"A Fey Noble who spreads darkness and chaos from place to place on the currents of wind (default: true)",
 			"defaultBoolValue":"true"
 		}
 	]

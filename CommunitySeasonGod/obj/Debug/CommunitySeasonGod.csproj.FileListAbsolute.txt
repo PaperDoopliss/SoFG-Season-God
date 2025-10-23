@@ -35,3 +35,38 @@ D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\Co
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\Communit.E156A968.Up2Date
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.dll
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.pdb
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\CommunitySeasonGod.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\CommunitySeasonGod.pdb
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\netstandard.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UI.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\Unity.TextMeshPro.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UIModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.TextRenderingModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.InputLegacyModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.PhysicsModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.AudioModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.AnimationModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.IMGUIModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\Unity.Burst.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UnityWebRequestWWWModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.TextCoreFontEngineModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.JSONSerializeModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.ImageConversionModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.SharedInternalsModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.Physics2DModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UIElementsModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.TilemapModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.SpriteShapeModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\Unity.Burst.Unsafe.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UnityWebRequestModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.AssetBundleModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UnityWebRequestAssetBundleModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.UIElementsNativeModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.TextCoreTextEngineModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\UnityEngine.GridModule.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.csproj.AssemblyReference.cache
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.csproj.CoreCompileInputs.cache
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\Communit.E156A968.Up2Date
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.pdb

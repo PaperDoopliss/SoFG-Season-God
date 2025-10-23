@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommunitySeasonGod
 {
-    public class SubGod_Season_Hunt : Season_SubGod
+    public class SubGod_Season_Hunt : SubGod
     {
         public Map map;
         public SubGod_Season_Hunt(Map map)
