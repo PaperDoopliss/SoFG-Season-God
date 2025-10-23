@@ -10,7 +10,7 @@ THINGS YOU HAVE TO DO:
 -Overwrite the DLL in Paste Contents Into OptionalData -> SeasonGod
 
 THINGS YOU SHOULD PROBABLY DO, BUT I'M NOT YOUR DAD:
--Add at least one power to your Sub-God's bonusPowers list (and approprite ints to bonusPowerLevelReqs) to help players out if they random into your Sub-God
+-Add at least one power to your Sub-God's bonusPowers list (and appropriate ints to bonusPowerLevelReqs) to help players out if they random into your Sub-God
 -Override GetKeywords() with a couple words so people selecting your god will know what they're getting into
 -Add a custom portrait for your Sub-God to Paste Contents Into OptionalData -> SeasonGod, and override GetSpritePath() to point to it ("comseason.[whatever your filename is]")
 -Add a custom "Sub-God has Activated" event to the same folder and override GetEventPath() to point to it (exactly the text under "id" for your event JSON)
