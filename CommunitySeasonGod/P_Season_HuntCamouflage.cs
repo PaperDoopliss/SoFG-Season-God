@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CommunitySeasonGod
 {
-    public class P_Season_HuntCamouflage : P_Season_SubGodPower
+    public class P_Season_HuntCamouflage : P_Season
     {
         public P_Season_HuntCamouflage(Map map) : base(map) { }
 

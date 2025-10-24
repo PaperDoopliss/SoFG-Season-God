@@ -12,26 +12,60 @@ namespace CommunitySeasonGod
     public class Kernel_Season : ModKernel
     {
 
-        private static Kernel_Season thisKernel;
-        public static Kernel_Season get() { return thisKernel; }
+        private static Kernel_Season _kernel;
+        public static Kernel_Season Instance => _kernel;
 
+        private static CommunityLib.ModCore _comLibKernel;
+        public static CommunityLib.ModCore ComLibKernel => _comLibKernel;
 
-        public int seasonLength = 80;
+        public static bool opt_deckMode = true;
 
-        public bool param_windEnabled = true;
-        public bool param_huntEnabled = true;
+        public static int opt_seasonLength = 80;
+        public static int opt_windEnabled = 1;
+        public static int opt_huntEnabled = 1;
+
+        public static int GetSubGodEnabledState(SubGod subGod)
+        {
+            switch(subGod)
+            {
+                case SubGod_Hunt _:
+                    return opt_huntEnabled;
+                case SubGod_Wind _:
+                    return opt_windEnabled;
+                default:
+                    return 0;
+            }
+        }
 
         public override void onModsInitiallyLoaded()
         {
-            thisKernel = this;
+            _kernel = this;
         }
         public override void beforeMapGen(Map map)
         {
-            thisKernel = this;
+            _kernel = this;
+
+            GetModKernels(map);
         }
         public override void afterLoading(Map map)
         {
-            thisKernel = this;
+            _kernel = this;
+
+            GetModKernels(map);
+        }
+
+        private void GetModKernels(Map map)
+        {
+            foreach (ModKernel kernel in map.mods)
+            {
+                switch(kernel.GetType().Namespace)
+                {
+                    case "CommunityLib":
+                        _comLibKernel = kernel as CommunityLib.ModCore;
+                        ComLibKernel.RegisterHooks(new ComLibHooks(map));
+                        break;
+                }
+            }
         }
 
         public override void onStartGamePresssed(Map map, List<God> gods)
@@ -41,17 +75,27 @@ namespace CommunitySeasonGod
 
         public override void receiveModConfigOpts_int(string optName, int value)
         {
-            if (optName == "Season Length")
-                thisKernel.seasonLength = value;
+            switch(optName)
+            {
+                case "Season Length":
+                    opt_seasonLength = value;
+                    break;
+                case "Master of the Hunt Enabled":
+                    opt_huntEnabled = value;
+                    break;
+                case "Painter of Winds Enabled":
+                    opt_windEnabled = value;
+                    break;
+            }
         }
         public override void receiveModConfigOpts_bool(string optName, bool value)
         {
-            if (optName == "Master of the Hunt Enabled")
-                thisKernel.param_huntEnabled = value;
-            else if (optName == "Painter of Winds Enabled")
-                thisKernel.param_windEnabled = value;
+            switch(optName)
+            {
+                case "Deck of Seasons":
+                    opt_deckMode=value;
+                    break;
+            }
         }
-
-
     }
 }
