@@ -35,3 +35,9 @@ D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\Co
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\Communit.E156A968.Up2Date
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.dll
 D:\Projects\Shadows of Forbidden Gods\Season God\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.pdb
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\CommunitySeasonGod.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\bin\Debug\CommunitySeasonGod.pdb
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.csproj.AssemblyReference.cache
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.csproj.CoreCompileInputs.cache
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.dll
+C:\Users\ilike_000\Documents\My Documents\Shadows of Forbidden Gods\Community Mods\SeasonsGod\CommunitySeasonGod\obj\Debug\CommunitySeasonGod.pdb

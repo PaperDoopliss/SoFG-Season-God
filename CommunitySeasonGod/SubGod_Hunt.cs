@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace CommunitySeasonGod
 {
-    public class SubGod_Season_Hunt : Season_SubGod
+    public class SubGod_Hunt : SubGod
     {
-        public Map map;
-        public SubGod_Season_Hunt(Map map)
+        public SubGod_Hunt(God_Season god, Map map)
+            : base (god, map)
         {
-            this.map = map;
-            powers.Add(new P_Season_HuntCamouflage(map));
-            powerLevelReqs.Add(0);
-            bonusPowers.Add(new P_Season_HuntBonus(map));
-            bonusPowerLevelReqs.Add(0);
+            Powers.Add(new P_Season_HuntCamouflage(map));
+            PowerLevelReqs.Add(0);
+            BonusPowers.Add(new P_Season_HuntBonus(map));
+            BonusPowerLevelReqs.Add(0);
         }
 
         public override string GetName()

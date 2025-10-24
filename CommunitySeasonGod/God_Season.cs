@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace CommunitySeasonGod
@@ -11,11 +9,46 @@ namespace CommunitySeasonGod
     public class God_Season : God
     {
 
-        public Season_SubGod activeSubGod = null;
-        public List<Season_SubGod> subGods = new List<Season_SubGod>();
-        public List<Season_SubGod> pendingSubGods = new List<Season_SubGod>();
+        [SerializeField]
+        protected SubGod _activeSubGod = null;
+        public SubGod ActiveSubGod => _activeSubGod;
 
-        public int turnsRemainingInSeason = 0;
+        [SerializeField]
+        protected List<SubGod> _subGods = new List<SubGod>();
+        public List<SubGod> SubGods => _subGods;
+
+        [SerializeField]
+        protected List<SubGod> _subGodDeck = new List<SubGod>();
+
+        [SerializeField]
+        protected List<Power> _genericPowers = new List<Power>();
+
+        [SerializeField]
+        protected List<int> _genericPowerLevelReqs = new List<int>();
+
+        [SerializeField]
+        protected List<Power> _bonusGenericPowers = new List<Power>();
+
+        [SerializeField]
+        protected List<int> _bonusGenericPowerLevelReqs = new List<int>();
+
+        [SerializeField]
+        protected int _elderTombLocationIndex;
+        public int ElderTombLocationIndex => _elderTombLocationIndex;
+        public Location ElderTombLocation
+        {
+            get
+            {
+                if (ElderTombLocationIndex < 0 || ElderTombLocationIndex >= map.locations.Count)
+                {
+                    return null;
+                }
+
+                return map.locations[ElderTombLocationIndex];
+            }
+        }
+
+        public int turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
         public bool hasClungToThrone = false;
         public bool lastShiftWasNatural = false;
 
@@ -23,14 +56,24 @@ namespace CommunitySeasonGod
         {
             base.setup(map);
 
-            if (Kernel_Season.get().param_huntEnabled)
-                subGods.Add(new SubGod_Season_Hunt(map));
-            if (Kernel_Season.get().param_windEnabled)
-                subGods.Add(new SubGod_Season_Wind(map));
+            if (Kernel_Season.opt_huntEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Hunt(this, map));
+            }
+
+            if (Kernel_Season.opt_windEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Wind(this, map));
+            }
         }
 
         public override string getName()
         {
+            if (ActiveSubGod != null)
+            {
+                return "God of Seasons: " + ActiveSubGod.GetName();
+            }
+
             return "God of Seasons";
         }
 
@@ -47,22 +90,86 @@ namespace CommunitySeasonGod
         public override string getDetailedMechanics()
         {
 
-            return "This Elder God plays by putting decisive bursts of resources toward a specific goal, then pivoting wildly toward different plans as they enjoy the last season's successes.\n\n<b>The Court</b>\nThe game begins with a random Noble in play with their own list of powers. Every " + Kernel_Season.get().seasonLength + " turns, control of the Court will shift to a different random Noble, removing the previous Noble's power list and replacing it with a new one. This changing of the seasons also grants you a bonus based on the new ruler, allowing them to get off the ground quickly. You can use the Seize the Throne power to switch before time runs out, which also allows you to choose the next Noble to control, though the new Noble will not benefit from their normal Season Changes effect. The change can also be delayed using the Cling to the Throne power, but not indefinitely.\n\n<b>Fey Presence</b>\nThe Court's more impactful powers are fueled by the Fey Presence modifier. Each Noble has their own ways of generating Fey Presence in line with their playstyle, but the resource itself remains across seasons and can be used by all Nobles equally. If you have no plans left for your current Noble, consider spreading additional Fey Presence until the seasons change again.\n\n<b>The Supplicant</b>\nThe Supplicant does not occupy an agent slot, and takes different forms for different Nobles. Supplicants can outlive their Noble's season, but if the Supplicant is dead when the Nobles change rulership that Noble's Supplicant will emerge to serve you.";
+            return "This Elder God plays by putting decisive bursts of resources toward a specific goal, then pivoting wildly toward different plans as they enjoy the last season's successes.\n\n<b>The Court</b>\nThe game begins with a random Noble in play with their own list of powers. Every " + Kernel_Season.opt_seasonLength + " turns, control of the Court will shift to a different random Noble, removing the previous Noble's power list and replacing it with a new one. This changing of the seasons also grants you a bonus based on the new ruler, allowing them to get off the ground quickly. You can use the Seize the Throne power to switch before time runs out, which also allows you to choose the next Noble to control, though the new Noble will not benefit from their normal Season Changes effect. The change can also be delayed using the Cling to the Throne power, but not indefinitely.\n\n<b>Fey Presence</b>\nThe Court's more impactful powers are fueled by the Fey Presence modifier. Each Noble has their own ways of generating Fey Presence in line with their playstyle, but the resource itself remains across seasons and can be used by all Nobles equally. If you have no plans left for your current Noble, consider spreading additional Fey Presence until the seasons change again.\n\n<b>The Supplicant</b>\nThe Supplicant does not occupy an agent slot, and takes different forms for different Nobles. Supplicants can outlive their Noble's season, but if the Supplicant is dead when the Nobles change rulership that Noble's Supplicant will emerge to serve you.";
         }
 
         public override void onStart(Map map)
         {
-            turnsRemainingInSeason = Kernel_Season.get().seasonLength;
-            map.overmind.availableEnthrallments = 3;
-            checkRefreshAvailableSubGods();
+            base.onStart(map);
+            foreach (Location loc in map.locations)
+            {
+                if (CommunityLib.ModCore.Get().checkIsElderTomb(loc))
+                {
+                    _elderTombLocationIndex = loc.index;
+                    break;
+                }
+            }
 
-            changeSubGods();
+            turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+            map.overmind.availableEnthrallments = 2;
+            if (Kernel_Season.opt_deckMode)
+            {
+                CheckShuffleSubGodDeck();
+            }
+
+            ChangeSubGods();
         }
 
+        #region supplicant
         public override Sprite getSupplicant()
         {
+            if (ActiveSubGod != null)
+            {
+                return ActiveSubGod.GetSupplicantSprite();
+            }
+
             return map.world.textureStore.agent_supplicantSnake;
         }
+
+        public override bool hasSupplicantStartingTraits()
+        {
+            if (ActiveSubGod != null)
+            {
+                return ActiveSubGod.HasSupplicantStartingTraits();
+            }
+
+            return false;
+        }
+
+        public override List<Trait> getSupplicantStartingTraits()
+        {
+            if (ActiveSubGod != null)
+            {
+                return ActiveSubGod.GetSupplicantStartingTraits();
+            }
+
+            return new List<Trait>();
+        }
+
+        public virtual bool CheckRespawnSupplicant()
+        {
+            if (map.overmind.agents.Any(u => u is UAE_Supplicant))
+            {
+                return false;
+            }
+
+            if (ElderTombLocation == null)
+            {
+                return false;
+            }
+
+            RespawnSupplicant(map);
+            return true;
+        }
+
+        public virtual void RespawnSupplicant(Map map)
+        {
+            UAE_Supplicant supplicant = new UAE_Supplicant(ElderTombLocation, map.soc_dark);
+            map.units.Add(supplicant);
+            ElderTombLocation.units.Add(supplicant);
+            map.overmind.agents.Insert(0, supplicant);
+        }
+        #endregion
 
         public override int[] getSealLevels()
         {
@@ -71,7 +178,7 @@ namespace CommunitySeasonGod
 
         public override int[] getAgentCaps()
         {
-            return new int[10] { 2, 2, 3, 3, 4, 4, 4, 5, 5, 6 };
+            return new int[10] { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5 };
         }
 
         public override bool selectable()
@@ -91,8 +198,10 @@ namespace CommunitySeasonGod
 
         public override Sprite getGodPortrait(World world)
         {
-            if (activeSubGod != null && activeSubGod.GetSpritePath() != "")
-                return EventManager.getImg(activeSubGod.GetSpritePath());
+            if (ActiveSubGod != null && ActiveSubGod.GetSpritePath() != "")
+            {
+                return EventManager.getImg(ActiveSubGod.GetSpritePath());
+            }
             return world.textureStore.god_snake_portrait;
         }
 
@@ -113,15 +222,17 @@ namespace CommunitySeasonGod
 
         public override string getAwakenMessage()
         {
-            if (activeSubGod != null && activeSubGod.GetAwakeningMessage() != "")
-                return activeSubGod.GetAwakeningMessage();
+            if (ActiveSubGod != null && ActiveSubGod.GetAwakeningMessage() != "")
+            {
+                return ActiveSubGod.GetAwakeningMessage();
+            }
             return "Generic awakening message!";
         }
 
         public override string getVictoryMessage(int victoryMode)
         {
-            if (activeSubGod != null && activeSubGod.GetVictoryMessage() != "")
-                return activeSubGod.GetVictoryMessage();
+            if (ActiveSubGod != null && ActiveSubGod.GetVictoryMessage() != "")
+                return ActiveSubGod.GetVictoryMessage();
 
             switch (victoryMode)
             {
@@ -142,173 +253,225 @@ namespace CommunitySeasonGod
             };
         }
 
-        public void checkRefreshAvailableSubGods()
+        public bool CheckShuffleSubGodDeck()
         {
-
-            if (pendingSubGods.Count == 0 || pendingSubGods.Count == 1 && pendingSubGods[0] == activeSubGod)
+            if (_subGodDeck.Count != 0)
             {
+                return false;
+            }
 
-                pendingSubGods.Clear();
+            if (SubGods.Count == 0 || (SubGods.Count == 1 & SubGods[0] == ActiveSubGod) || SubGods.All(sg => Kernel_Season.GetSubGodEnabledState(sg) == 0 || Kernel_Season.GetSubGodEnabledState(sg) == 3))
+            {
+                return false;
+            }
 
-                for (int i = 0; i < subGods.Count; i++)
+            ShuffleSubGodDeck();
+            return true;
+        }
+
+        public void ShuffleSubGodDeck()
+        {
+            _subGodDeck.Clear();
+            
+            foreach (SubGod season in SubGods)
+            {
+                int enabledState = Kernel_Season.GetSubGodEnabledState(season);
+                if (enabledState == 0 || enabledState == 3)
                 {
-                    pendingSubGods.Add(subGods[i]);
+                    continue;
                 }
+
+                _subGodDeck.Add(season);
+            }
+
+            // Fisher–Yates shuffle - A simple linear O(n) shuffling algorithm with uniform results.
+            for (int i = _subGodDeck.Count - 1; i > 0; i--)
+            {
+                int index = Eleven.random.Next(i + 1);
+                if (index == i)
+                {
+                    continue;
+                }
+
+                SubGod season = _subGodDeck[index];
+                _subGodDeck[index] = _subGodDeck[i];
+                _subGodDeck[i] = season;
             }
         }
 
-        public void removeSubGodPowers()
+        public SubGod DrawSubGod()
         {
-            for (int i = 0; i < map.overmind.god.powers.Count; i++)
-            {
-                if (map.overmind.god.powers[i] is P_Season_SubGodPower)
-                {
-                    map.overmind.god.powers.RemoveAt(i);
-                    map.overmind.god.powerLevelReqs.RemoveAt(i);
-                    i--;
-                }
-            }
+            CheckShuffleSubGodDeck();
+            int lastIndex = _subGodDeck.Count - 1;
+            SubGod season = _subGodDeck[lastIndex];
+            _subGodDeck.RemoveAt(lastIndex);
+
+            return season;
         }
 
-        public void addSubGodPowers(Season_SubGod toAdd, bool includeBonusPowers)
+        public SubGod SelectRandomSubGod()
         {
-
-            if (toAdd != null)
+            // A linear streaming-based random selection algorithm that gives uniform results. Allows pre-processing of values without list duplication.
+            SubGod result = null;
+            int n = 1;
+            foreach (SubGod season in SubGods)
             {
-                if (includeBonusPowers)
+                if (season == ActiveSubGod)
                 {
-                    for (int i = 0; i < toAdd.bonusPowers.Count; i++)
-                    {
-                        map.overmind.god.powers.Add(toAdd.bonusPowers[i]);
-                        map.overmind.god.powerLevelReqs.Add(toAdd.bonusPowerLevelReqs[i]);
-                    }
+                    continue;
                 }
-                for (int i = 0; i < toAdd.powers.Count; i++)
+
+                int enabledState = Kernel_Season.GetSubGodEnabledState(season);
+                if (enabledState == 0 || enabledState == 3)
                 {
-                    map.overmind.god.powers.Add(toAdd.powers[i]);
-                    map.overmind.god.powerLevelReqs.Add(toAdd.powerLevelReqs[i]);
+                    continue;
                 }
+
+                if (Eleven.random.Next(n) == 0)
+                {
+                    result = season;
+                }
+
+                n++;
             }
+
+            return result;
         }
 
-        public void changeSubGods(Season_SubGod newSubGod = null, bool transitionNaturally = true)
+        public SubGod PeekSubGodDeck()
         {
+            CheckShuffleSubGodDeck();
+            return _subGodDeck[_subGodDeck.Count - 1];
+        }
 
-            //Everyone on our Pending Sub God list except ourselves
-            List<Season_SubGod> potentialSubGods = new List<Season_SubGod>();
-            for (int i = 0; i < pendingSubGods.Count; i++)
+        public void ChangeSubGods(SubGod newSubGod = null, bool transitionNaturally = true)
+        {
+            if (newSubGod == null)
             {
-                if (pendingSubGods[i] != activeSubGod)
-                    potentialSubGods.Add(pendingSubGods[i]);
-            }
-
-            if (newSubGod == null && potentialSubGods.Count > 0) 
-                newSubGod = potentialSubGods[Eleven.random.Next(potentialSubGods.Count)];
-
-            //Should always be true, but a sanity check
-            if (newSubGod != null)
-            {
-
-                lastShiftWasNatural = transitionNaturally;
-
-                foreach (Season_SubGod subGod in subGods)
+                if (Kernel_Season.opt_deckMode)
                 {
-                    subGod.OnSubGodTransition(map, activeSubGod, newSubGod, transitionNaturally);
-                }
-
-                if (activeSubGod != null)
-                {
-                    activeSubGod.OnDeactivate(map, newSubGod, transitionNaturally);
-                    removeSubGodPowers();
-                }
-
-                if (newSubGod != null)
-                {
-                    newSubGod.OnActivate(map, activeSubGod, transitionNaturally);
-                    pendingSubGods.Remove(newSubGod);
-                }
-
-                activeSubGod = newSubGod;
-                addSubGodPowers(newSubGod, transitionNaturally);
-
-
-                if (!transitionNaturally || activeSubGod.GetEventPathBonus() == "")
-                {
-                    if (activeSubGod.GetEventPath() != "")
-                    {
-                        if (EventManager.events.ContainsKey(activeSubGod.GetEventPath()))
-                        {
-                            EventContext ctx = EventContext.withNothing(map);
-                            ctx.map.world.prefabStore.popEvent(EventManager.events[activeSubGod.GetEventPath()].data, ctx, null, force: true);
-                        }
-                    }
+                    newSubGod = DrawSubGod();
                 }
                 else
                 {
-                    if (EventManager.events.ContainsKey(activeSubGod.GetEventPathBonus()))
-                    {
-                        EventContext ctx = EventContext.withNothing(map);
-                        ctx.map.world.prefabStore.popEvent(EventManager.events[activeSubGod.GetEventPathBonus()].data, ctx, null, force: true);
-                    }
+                    newSubGod = SelectRandomSubGod();
                 }
-
             }
 
-            checkRefreshAvailableSubGods();
+            if (newSubGod == null)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to switch sub-god: No new sub-god available.");
+                if (ActiveSubGod != null)
+                {
+                    newSubGod = ActiveSubGod;
+                }
+                else
+                {
+                    Console.WriteLine("ComSeasonGod: ERROR: No active sub-god.");
+                    return;
+                }
+            }
 
-            turnsRemainingInSeason = Kernel_Season.get().seasonLength;
+            lastShiftWasNatural = transitionNaturally;
+
+            ActiveSubGod?.OnDeactivate(map, newSubGod, transitionNaturally);
+
+            powers.Clear();
+            powerLevelReqs.Clear();
+
+            powers.AddRange(_genericPowers);
+            powerLevelReqs.AddRange(_genericPowerLevelReqs);
+
+            if (transitionNaturally)
+            {
+                powers.AddRange(_bonusGenericPowers);
+                powerLevelReqs.AddRange(_bonusGenericPowerLevelReqs);
+            }
+
+            powers.AddRange(newSubGod.Powers);
+            powerLevelReqs.AddRange(newSubGod.PowerLevelReqs);
+
+            if (transitionNaturally)
+            {
+                powers.AddRange(newSubGod.BonusPowers);
+                powerLevelReqs.AddRange(newSubGod.BonusPowerLevelReqs);
+            }
+
+            foreach (Power power in powers)
+            {
+                if (!(power is P_Season_LimitedCharges limitedPower))
+                {
+                    continue;
+                }
+
+                limitedPower.ResetCharges();
+            }
+
+            SubGod lastSeason = _activeSubGod;
+            _activeSubGod = newSubGod;
+
+            newSubGod.OnActivate(map, ActiveSubGod, transitionNaturally);
+
+            foreach (SubGod subGod in SubGods)
+            {
+                subGod.OnSubGodTransition(map, lastSeason, _activeSubGod, transitionNaturally);
+            }
+
+            if (!map.overmind.agents.Any(u => u is UAE_Supplicant))
+            {
+                
+            }
+
+            if (!transitionNaturally || ActiveSubGod.GetEventPathBonus() == "")
+            {
+                if (ActiveSubGod.GetEventPath() != "")
+                {
+                    if (EventManager.events.ContainsKey(ActiveSubGod.GetEventPath()))
+                    {
+                        EventContext ctx = EventContext.withNothing(map);
+                        ctx.map.world.prefabStore.popEvent(EventManager.events[ActiveSubGod.GetEventPath()].data, ctx, null, force: true);
+                    }
+                }
+            }
+            else
+            {
+                if (EventManager.events.ContainsKey(ActiveSubGod.GetEventPathBonus()))
+                {
+                    EventContext ctx = EventContext.withNothing(map);
+                    ctx.map.world.prefabStore.popEvent(EventManager.events[ActiveSubGod.GetEventPathBonus()].data, ctx, null, force: true);
+                }
+            }
+
+            turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
         }
 
         public override void turnTick()
         {
             base.turnTick();
 
-            if (map.turn > 0)
+            if (map.turn < 0)
             {
-                turnsRemainingInSeason--;
-                if (turnsRemainingInSeason <= 0)
+                return;
+            }
+
+            turnsRemainingInSeason--;
+            if (turnsRemainingInSeason <= 0)
+            {
+                ChangeSubGods();
+            }
+
+            foreach (SubGod subGod in SubGods)
+            {
+                if (subGod == ActiveSubGod)
                 {
-
-                    //Sanity check, we should always catch it after the subgod change instead of here
-                    checkRefreshAvailableSubGods();
-
-                    //Multiple SubGods in play
-                    if (subGods.Count > 1)
-                    {
-                        changeSubGods();
-                    }
-
-                    else if (subGods.Count == 1) //For some reason there's only one SubGod in play
-                    {
-                        if (subGods[0] != activeSubGod) //If for some reason it's not the SubGod we currently have controlled
-                        {
-                            changeSubGods();
-                        }
-                        else
-                            turnsRemainingInSeason = Kernel_Season.get().seasonLength;
-
-                    }
-                    else if (activeSubGod != null) //We have no possible SubGods, but somehow we still have an active one we need to clean up
-                    {
-                        removeSubGodPowers();
-                        activeSubGod = null;
-                        turnsRemainingInSeason = Kernel_Season.get().seasonLength;
-                    }
-
+                    subGod.TurnTick_Active(map);
+                }
+                else
+                {
+                    subGod.TurnTick_Inactive(map);
                 }
             }
 
-            foreach (Season_SubGod subGod in subGods)
-            {
-                if (subGod != activeSubGod)
-                    subGod.TurnTick_Inactive(map);
-                else
-                    subGod.TurnTick_Active(map);
-            }
-
         }
-
-
-
     }
 }
