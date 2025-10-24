@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|c:\\users\\ilike_000\\documents\\my documents\\shadows of forbidden gods\\community mods\\seasonsgod\\communityseasongod\\god_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|solutionrelative:god_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\kernel_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|solutionrelative:kernel_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|c:\\users\\ilike_000\\documents\\my documents\\shadows of forbidden gods\\community mods\\seasonsgod\\communityseasongod\\subgod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|solutionrelative:subgod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|c:\\users\\ilike_000\\documents\\my documents\\shadows of forbidden gods\\community mods\\seasonsgod\\communityseasongod\\god_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|solutionrelative:god_season.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{37B749BD-B310-4926-91E1-A0338BB2D7C1}|CommunitySeasonGod.csproj|c:\\users\\ilike_000\\documents\\my documents\\shadows of forbidden gods\\community mods\\seasonsgod\\communityseasongod\\subgod_wind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -93,20 +93,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "God_Season.cs",
               "DocumentMoniker": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\God_Season.cs",
               "RelativeDocumentMoniker": "God_Season.cs",
-              "ToolTip": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\God_Season.cs",
-              "RelativeToolTip": "God_Season.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAgwKkAAAA2AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\God_Season.cs*",
+              "RelativeToolTip": "God_Season.cs*",
+              "ViewState": "AgIAAK0BAAAAAAAAAAAawMUBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T03:17:48.21Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "SubGod.cs",
               "DocumentMoniker": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\SubGod.cs",
               "RelativeDocumentMoniker": "SubGod.cs",
@@ -119,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ComLibHooks.cs",
               "DocumentMoniker": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\ComLibHooks.cs",
               "RelativeDocumentMoniker": "ComLibHooks.cs",
@@ -132,13 +132,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Kernel_Season.cs",
               "DocumentMoniker": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\Kernel_Season.cs",
               "RelativeDocumentMoniker": "Kernel_Season.cs",
               "ToolTip": "C:\\Users\\ilike_000\\Documents\\My Documents\\Shadows of Forbidden Gods\\Community Mods\\SeasonsGod\\CommunitySeasonGod\\Kernel_Season.cs",
               "RelativeToolTip": "Kernel_Season.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAA9wEAAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAA0wEAAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T03:03:54.994Z",
               "EditorCaption": ""

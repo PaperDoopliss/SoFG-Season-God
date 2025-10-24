@@ -35,6 +35,7 @@ namespace CommunitySeasonGod
         [SerializeField]
         protected int _elderTombLocationIndex;
         public int ElderTombLocationIndex => _elderTombLocationIndex;
+
         public Location ElderTombLocation
         {
             get
@@ -47,6 +48,11 @@ namespace CommunitySeasonGod
                 return map.locations[ElderTombLocationIndex];
             }
         }
+
+        [SerializeField]
+        protected Sprite _supplicantSprite;
+        [SerializeField]
+        protected List<Trait> _supplicantStartningTraits;
 
         public int turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
         public bool hasClungToThrone = false;
@@ -118,16 +124,31 @@ namespace CommunitySeasonGod
         #region supplicant
         public override Sprite getSupplicant()
         {
-            if (ActiveSubGod != null)
+            if (_supplicantSprite == null)
             {
-                return ActiveSubGod.GetSupplicantSprite();
+                FetchSupplicantSprite();
             }
 
-            return map.world.textureStore.agent_supplicantSnake;
+            return _supplicantSprite;
+        }
+
+        private void FetchSupplicantSprite()
+        {
+            if (ActiveSubGod != null)
+            {
+                _supplicantSprite = ActiveSubGod.GetSupplicantSprite();
+            }
+
+            _supplicantSprite = map.world.textureStore.agent_supplicantSnake;
         }
 
         public override bool hasSupplicantStartingTraits()
         {
+            if (_supplicantStartningTraits != null && _supplicantStartningTraits.Count > 0)
+            {
+                return true;
+            }
+
             if (ActiveSubGod != null)
             {
                 return ActiveSubGod.HasSupplicantStartingTraits();
@@ -138,12 +159,23 @@ namespace CommunitySeasonGod
 
         public override List<Trait> getSupplicantStartingTraits()
         {
-            if (ActiveSubGod != null)
+            if (_supplicantStartningTraits == null || _supplicantStartningTraits.Count == 0)
             {
-                return ActiveSubGod.GetSupplicantStartingTraits();
+                FetchSupplcantStartingTraits();
+                
             }
 
-            return new List<Trait>();
+            return _supplicantStartningTraits;
+        }
+
+        private void FetchSupplcantStartingTraits()
+        {
+            if (ActiveSubGod != null && ActiveSubGod.HasSupplicantStartingTraits())
+            {
+                _supplicantStartningTraits = ActiveSubGod.GetSupplicantStartingTraits();
+            }
+
+            _supplicantStartningTraits = new List<Trait>();
         }
 
         public virtual bool CheckRespawnSupplicant()
@@ -158,6 +190,8 @@ namespace CommunitySeasonGod
                 return false;
             }
 
+            FetchSupplicantSprite();
+            FetchSupplcantStartingTraits();
             RespawnSupplicant(map);
             return true;
         }
@@ -417,10 +451,7 @@ namespace CommunitySeasonGod
                 subGod.OnSubGodTransition(map, lastSeason, _activeSubGod, transitionNaturally);
             }
 
-            if (!map.overmind.agents.Any(u => u is UAE_Supplicant))
-            {
-                
-            }
+            CheckRespawnSupplicant();
 
             if (!transitionNaturally || ActiveSubGod.GetEventPathBonus() == "")
             {
