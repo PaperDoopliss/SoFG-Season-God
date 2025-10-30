@@ -27,7 +27,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Brings up a list of seasons which you can immediately wswitch to, allowing selection of the next season, and early transition. You do not receive the bonus powers or effects that come with a natural season transition. This power is more expensive the earlier in a season you use it.";
+            return "Brings up a list of seasons which you can immediately switch to, allowing early transition to a season of your choice. You do not receive the bonus powers or effects that come with a natural season transition. This power is more expensive the earlier in a season you use it.";
         }
 
         public override string getFlavour()
@@ -51,7 +51,17 @@ namespace CommunitySeasonGod
             return (int)Math.Round(MaxDurationPenalty * seasonRemainingFraction); // Cost decreases linearly at duration fractions 0.875 (5 -> 4), 0.625 (4 -> 3), 0.375 (3 -> 2), and 0.125 (2 -> 1).
         }
 
-        public override void castCommon(Location loc)
+        public override bool validTarget(Location loc)
+        {
+            return true;
+        }
+
+        public override bool validTarget(Unit unit)
+        {
+            return false;
+        }
+
+        public override void cast(Location loc)
         {
             if (!(map.overmind.god is God_Season seasonGod))
             {
