@@ -40,6 +40,29 @@ namespace CommunitySeasonGod
         {
             return 1;
         }
+
+        public virtual int GetCost(Location loc)
+        {
+            Pr_FeyPresence feyPresence = (Pr_FeyPresence)loc.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
+            if (feyPresence == null || feyPresence.charge < 100.0)
+            {
+                return -1;
+            }
+
+            if (feyPresence.charge < 200.0)
+            {
+                return getCost() + 2;
+            }
+
+            if (feyPresence.charge < 300.0)
+            {
+                return getCost() + 1;
+            }
+
+            return getCost();
+        }
+
+
         public override bool validTarget(Unit unit)
         {
             return false;
@@ -76,14 +99,9 @@ namespace CommunitySeasonGod
 
         public override void cast(Location loc)
         {
-            if (!(map.overmind.god is God_Season seasonGod))
-            {
-                map.overmind.power += getCost();
-                return;
-            }
+            base.cast(loc);
 
-            Pr_FeyPresence feyPresence = (Pr_FeyPresence)loc.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
-            if (feyPresence == null)
+            if (!(map.overmind.god is God_Season seasonGod))
             {
                 map.overmind.power += getCost();
                 return;
@@ -96,24 +114,13 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            int additionalCost;
-            if (feyPresence.charge < 200.0)
-            {
-                additionalCost = 2;
-            }
-            else if (feyPresence.charge < 300.0)
-            {
-                additionalCost = 1;
-            }
-            else
-            {
-                additionalCost = 0;
-            }
+            int additionalCost = GetCost(loc) - getCost();
 
             if (additionalCost > 0)
             {
                 map.overmind.power -= additionalCost;
             }
+            Pr_FeyPresence feyPresence = (Pr_FeyPresence)loc.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
             loc.properties.Remove(feyPresence);
 
             Sel2_SeasonSelector selector = new Sel2_SeasonSelector(seasonGod, subGods, getCost() + additionalCost);

@@ -74,6 +74,8 @@ namespace CommunitySeasonGod
 
             _genericPowers.Add(new P_AmicableShift(map));
             _genericPowerLevelReqs.Add(0);
+            _genericPowers.Add(new P_HostileShift(map));
+            _genericPowerLevelReqs.Add(0);
         }
 
         public override string getName()

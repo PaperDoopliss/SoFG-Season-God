@@ -1,5 +1,24 @@
-Images:
+==============================
+========= Event Hosts ========
+==============================
+- Doopliss
+- ilikegoodfood
+- Katrina
 
+==============================
+========= God Modders ========
+==============================
+- Crut
+- Doopliss
+- DJWolfang25
+- ilikegoodfood
+- Katrina
+- MilkTeaMan
+- Pixie1001
+
+==============================
+=========== Images ===========
+==============================
 File Name(s): Icon_AmicableShift.jpg
 Title: Herfst in Oirase
 Artist(s): Kawase Hasui and Watanabe Shozaburo
