@@ -10,7 +10,7 @@ namespace CommunitySeasonGod
 {
 
     //A power that automatically removes itself once it has run out of charges.
-    public class P_Season_LimitedCharges : P_Season
+    public abstract class P_Season_LimitedCharges : P_Season
     {
         [SerializeField]
         protected int _maxCharges = 1;
@@ -29,10 +29,11 @@ namespace CommunitySeasonGod
             Charges = _maxCharges;
         }
 
-        public override void cast(Location loc)
+        /// <summary>
+        /// A method that canm be called by the cast methods of subclasses for standardized charge management.
+        /// </summary>
+        public virtual void SpendCharge()
         {
-            base.cast(loc);
-
             Charges--;
             if (Charges <= 0)
             {
@@ -46,25 +47,5 @@ namespace CommunitySeasonGod
                 }
             }
         }
-
-        public override void cast(Unit unit)
-        {
-            base.cast(unit);
-
-            Charges--;
-            if (Charges <= 0)
-            {
-                for (int i = 0; i < map.overmind.god.powers.Count; i++)
-                {
-                    if (map.overmind.god.powers[i] == this)
-                    {
-                        map.overmind.god.powers.RemoveAt(i);
-                        map.overmind.god.powerLevelReqs.RemoveAt(i);
-                    }
-                }
-            }
-        }
-
-
     }
 }

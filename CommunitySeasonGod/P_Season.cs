@@ -9,22 +9,12 @@ using UnityEngine;
 
 namespace CommunitySeasonGod
 {
-
-
-    public class P_Season : Power
+    public abstract class P_Season : Power
     {
-        public P_Season(Map map) : base(map)
+        public P_Season(Map map)
+            : base(map)
         {
-        }
 
-        public override void cast(Location loc)
-        {
-            base.cast(loc);
-        }
-
-        public override void cast(Unit unit)
-        {
-            base.cast(unit);
         }
     }
 }

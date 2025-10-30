@@ -55,15 +55,16 @@
   <ItemGroup>
     <Compile Include="ComLibHooks.cs" />
     <Compile Include="God_Season.cs" />
-    <Compile Include="P_Season_HuntBonus.cs" />
-    <Compile Include="P_Season_WindCurrent.cs" />
-    <Compile Include="P_Season_HuntCamouflage.cs" />
-    <Compile Include="SubGod_Wind.cs" />
-    <Compile Include="SubGod_Hunt.cs" />
+    <Compile Include="Pr_FeyPresence.cs" />
+    <Compile Include="P_AmicableShift.cs" />
+    <Compile Include="SubGod_Hunt\P_Season_HuntBonus.cs" />
+    <Compile Include="SubGod_Wind\P_Season_WindCurrent.cs" />
+    <Compile Include="SubGod_Hunt\P_Season_HuntCamouflage.cs" />
+    <Compile Include="SubGod_Wind\SubGod_Wind.cs" />
+    <Compile Include="SubGod_Hunt\SubGod_Hunt.cs" />
     <Compile Include="Kernel_Season.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="P_Season_LimitedCharges.cs" />
-    <Compile Include="P_Season_PickAgain.cs" />
     <Compile Include="P_Season.cs" />
     <Compile Include="SubGod.cs" />
   </ItemGroup>
