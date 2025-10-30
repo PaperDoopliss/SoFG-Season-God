@@ -54,9 +54,9 @@ namespace CommunitySeasonGod
         [SerializeField]
         protected List<Trait> _supplicantStartningTraits;
 
-        public int turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
-        public bool hasClungToThrone = false;
-        public bool lastShiftWasNatural = false;
+        public int TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+        public bool HasClungToThrone = false;
+        public bool LastShiftWasNatural = false;
 
         public override void setup(Map map)
         {
@@ -71,6 +71,11 @@ namespace CommunitySeasonGod
             {
                 SubGods.Add(new SubGod_Wind(this, map));
             }
+
+            _genericPowers.Add(new P_AmicableShift(map));
+            _genericPowerLevelReqs.Add(0);
+            _genericPowers.Add(new P_HostileShift(map));
+            _genericPowerLevelReqs.Add(0);
         }
 
         public override string getName()
@@ -111,14 +116,9 @@ namespace CommunitySeasonGod
                 }
             }
 
-            turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+            TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
             map.overmind.availableEnthrallments = 2;
-            if (Kernel_Season.opt_deckMode)
-            {
-                CheckShuffleSubGodDeck();
-            }
-
-            ChangeSubGods();
+            ChangeSubGod();
         }
 
         #region supplicant
@@ -241,7 +241,7 @@ namespace CommunitySeasonGod
 
         public override Sprite getGodBackground(World world)
         {
-            return EventManager.getImg("comseason.god_background.jpg");
+            return EventManager.getImg("ComSeasonGod.god_background.jpg");
         }
 
         public override double getWorldPanicOnAwake()
@@ -287,6 +287,41 @@ namespace CommunitySeasonGod
             };
         }
 
+        public List<SubGod> GetSelectableSubGods()
+        {
+            List<SubGod> subGods = new List<SubGod>();
+
+            foreach (SubGod subGod in SubGods)
+            {
+                if (subGod == ActiveSubGod)
+                {
+                    continue;
+                }
+
+                int enabledState = Kernel_Season.GetSubGodEnabledState(subGod);
+                if (enabledState == 0 || enabledState == 2)
+                {
+                    continue;
+                }
+
+                subGods.Add(subGod);
+            }
+
+            return subGods;
+        }
+
+        public SubGod SelectRandomSelectableSubGod()
+        {
+            List<SubGod> subGods = GetSelectableSubGods();
+            if (subGods.Count == 0)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to select random sub god from selectable sub gods: No selectable sub gods available.");
+                return null;
+            }
+
+            return subGods[Eleven.random.Next(subGods.Count)];
+        }
+
         public bool CheckShuffleSubGodDeck()
         {
             if (_subGodDeck.Count != 0)
@@ -294,12 +329,18 @@ namespace CommunitySeasonGod
                 return false;
             }
 
-            if (SubGods.Count == 0 || (SubGods.Count == 1 & SubGods[0] == ActiveSubGod) || SubGods.All(sg => Kernel_Season.GetSubGodEnabledState(sg) == 0 || Kernel_Season.GetSubGodEnabledState(sg) == 3))
+            if (SubGods.Count == 0 || SubGods.All(sg => Kernel_Season.GetSubGodEnabledState(sg) == 0 || Kernel_Season.GetSubGodEnabledState(sg) == 3))
             {
                 return false;
             }
 
             ShuffleSubGodDeck();
+
+            if (_subGodDeck.Count == 0)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -321,7 +362,7 @@ namespace CommunitySeasonGod
             // Fisher–Yates shuffle - A simple linear O(n) shuffling algorithm with uniform results.
             for (int i = _subGodDeck.Count - 1; i > 0; i--)
             {
-                int index = Eleven.random.Next(i + 1);
+                int index = Eleven.random.Next(i + 1); // Random number from 0 to i, inclusively.
                 if (index == i)
                 {
                     continue;
@@ -335,12 +376,27 @@ namespace CommunitySeasonGod
 
         public SubGod DrawSubGod()
         {
-            CheckShuffleSubGodDeck();
+            if (!CheckShuffleSubGodDeck() && _subGodDeck.Count == 0)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to draw sub-god: No new sub-god available.");
+                return null;
+            }
             int lastIndex = _subGodDeck.Count - 1;
             SubGod season = _subGodDeck[lastIndex];
             _subGodDeck.RemoveAt(lastIndex);
 
             return season;
+        }
+
+        public SubGod PeekSubGodDeck()
+        {
+            if (!CheckShuffleSubGodDeck() && _subGodDeck.Count == 0)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to draw sub-god: No new sub-god available.");
+                return null;
+            }
+
+            return _subGodDeck[_subGodDeck.Count - 1];
         }
 
         public SubGod SelectRandomSubGod()
@@ -369,16 +425,15 @@ namespace CommunitySeasonGod
                 n++;
             }
 
+            if (result == null)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to select random sub-god: No new sub-god available.");
+            }
+
             return result;
         }
 
-        public SubGod PeekSubGodDeck()
-        {
-            CheckShuffleSubGodDeck();
-            return _subGodDeck[_subGodDeck.Count - 1];
-        }
-
-        public void ChangeSubGods(SubGod newSubGod = null, bool transitionNaturally = true)
+        public void ChangeSubGod(SubGod newSubGod = null, bool transitionNaturally = true)
         {
             if (newSubGod == null)
             {
@@ -406,7 +461,7 @@ namespace CommunitySeasonGod
                 }
             }
 
-            lastShiftWasNatural = transitionNaturally;
+            LastShiftWasNatural = transitionNaturally;
 
             ActiveSubGod?.OnDeactivate(map, newSubGod, transitionNaturally);
 
@@ -473,7 +528,7 @@ namespace CommunitySeasonGod
                 }
             }
 
-            turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+            TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
         }
 
         public override void turnTick()
@@ -485,10 +540,10 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            turnsRemainingInSeason--;
-            if (turnsRemainingInSeason <= 0)
+            TurnsRemainingInSeason--;
+            if (TurnsRemainingInSeason <= 0)
             {
-                ChangeSubGods();
+                ChangeSubGod();
             }
 
             foreach (SubGod subGod in SubGods)

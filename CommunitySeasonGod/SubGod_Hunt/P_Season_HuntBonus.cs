@@ -10,7 +10,11 @@ namespace CommunitySeasonGod
 {
     public class P_Season_HuntBonus : P_Season_LimitedCharges
     {
-        public P_Season_HuntBonus(Map map) : base(map) { }
+        public P_Season_HuntBonus(Map map)
+            : base(map)
+        {
+
+        }
 
         public override string getName()
         {

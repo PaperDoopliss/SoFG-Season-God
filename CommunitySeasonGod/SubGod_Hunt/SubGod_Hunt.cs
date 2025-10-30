@@ -30,12 +30,12 @@ namespace CommunitySeasonGod
 
         public override string GetEventPath()
         {
-            return "comseason.shift_hunt";
+            return "ComSeasonGod.shift_hunt";
         }
 
         public override string GetSpritePath()
         {
-            return "comseason.portrait_hunt.png";
+            return "ComSeasonGod.portrait_hunt.png";
         }
 
     }

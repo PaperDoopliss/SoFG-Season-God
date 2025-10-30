@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
+
 
 namespace CommunitySeasonGod
 {
@@ -88,6 +90,7 @@ namespace CommunitySeasonGod
                     break;
             }
         }
+
         public override void receiveModConfigOpts_bool(string optName, bool value)
         {
             switch(optName)
@@ -96,6 +99,67 @@ namespace CommunitySeasonGod
                     opt_deckMode=value;
                     break;
             }
+        }
+
+        public override void onCheatEntered(string command)
+        {
+            if (command != "fey")
+            {
+                return;
+            }
+
+            if (GraphicalMap.selectedHex != null && GraphicalMap.selectedHex.location != null)
+            {
+                Pr_FeyPresence feyPresence = (Pr_FeyPresence)GraphicalMap.selectedHex.location.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
+                if (feyPresence != null)
+                {
+                    feyPresence.charge += 75;
+                    if (feyPresence.charge > 300.0)
+                    {
+                        feyPresence.charge = 300.0;
+                    }
+                    return;
+                }
+                feyPresence = new Pr_FeyPresence(GraphicalMap.selectedHex.location);
+                feyPresence.charge = 75.0;
+                GraphicalMap.selectedHex.location.properties.Add(feyPresence);
+            }
+        }
+
+        public override void onGraphicalHexUpdated(GraphicalHex graphicalHex)
+        {
+            if (graphicalHex == null || !(graphicalHex.map.overmind.god is God_Season) || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
+            {
+                return;
+            }
+
+            if (!castSelector.canTarget(graphicalHex.hex))
+            {
+                graphicalHex.modifierStrength?.gameObject.SetActive(false);
+                return;
+            }
+
+            Pr_FeyPresence feyPresence = (Pr_FeyPresence)graphicalHex.hex.location.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
+            if (feyPresence == null)
+            {
+                graphicalHex.modifierStrength?.gameObject.SetActive(false);
+                return;
+            }
+
+            if (graphicalHex.modifierStrength == null)
+            {
+                graphicalHex.modifierStrength = graphicalHex.world.prefabStore.getModifierStrength(graphicalHex.hex.location.getName(true), Color.white);
+                graphicalHex.modifierStrength.gameObject.transform.SetParent(graphicalHex.transform);
+                graphicalHex.modifierStrength.gameObject.transform.localPosition = new Vector3(0f, 0f, -3.02f);
+                graphicalHex.modifierStrength.gameObject.transform.localScale = new Vector3(0.015f, 0.015f, 1f);
+            }
+            else
+            {
+                graphicalHex.modifierStrength.gameObject.SetActive(true);
+                graphicalHex.modifierStrength.gameObject.transform.localScale = new Vector3(0.015f, 0.015f, 1f);
+            }
+
+            graphicalHex.modifierStrength.words.text = hostileShift.GetCost(graphicalHex.hex.location).ToString();
         }
     }
 }
