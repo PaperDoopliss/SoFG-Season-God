@@ -26,6 +26,8 @@ namespace CommunitySeasonGod
         public static int opt_windEnabled = 1;
         public static int opt_huntEnabled = 1;
 
+        public bool HasHostileShift = false;
+
         public static int GetSubGodEnabledState(SubGod subGod)
         {
             switch(subGod)
@@ -43,12 +45,14 @@ namespace CommunitySeasonGod
         {
             _kernel = this;
         }
+
         public override void beforeMapGen(Map map)
         {
             _kernel = this;
 
             GetModKernels(map);
         }
+
         public override void afterLoading(Map map)
         {
             _kernel = this;
@@ -72,7 +76,14 @@ namespace CommunitySeasonGod
 
         public override void onStartGamePresssed(Map map, List<God> gods)
         {
+            Clean();
+
             gods.Add(new God_Season());
+        }
+
+        private void Clean()
+        {
+            HasHostileShift = false;
         }
 
         public override void receiveModConfigOpts_int(string optName, int value)
@@ -128,6 +139,11 @@ namespace CommunitySeasonGod
 
         public override void onGraphicalHexUpdated(GraphicalHex graphicalHex)
         {
+            if (!HasHostileShift)
+            {
+                return;
+            }
+
             if (graphicalHex == null || !(graphicalHex.map.overmind.god is God_Season) || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
             {
                 return;

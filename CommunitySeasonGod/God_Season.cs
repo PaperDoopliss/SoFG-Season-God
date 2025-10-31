@@ -116,6 +116,7 @@ namespace CommunitySeasonGod
                 }
             }
 
+            Kernel_Season.Instance.HasHostileShift = true;
             TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
             map.overmind.availableEnthrallments = 2;
             ChangeSubGod();
