@@ -13,7 +13,7 @@ namespace CommunitySeasonGod
         public P_HostileShift(Map map)
             : base(map)
         {
-
+            
         }
 
         public override string getName()
