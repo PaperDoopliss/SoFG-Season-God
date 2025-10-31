@@ -63,6 +63,8 @@ namespace CommunitySeasonGod
 
         public override void cast(Location loc)
         {
+            base.cast(loc);
+
             if (!(map.overmind.god is God_Season seasonGod))
             {
                 map.overmind.power += getCost();
