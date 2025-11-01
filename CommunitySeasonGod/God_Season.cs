@@ -447,6 +447,10 @@ namespace CommunitySeasonGod
                     newSubGod = SelectRandomSubGod();
                 }
             }
+            else if (Kernel_Season.opt_deckMode)
+            {
+                _subGodDeck.Remove(newSubGod);
+            }
 
             if (newSubGod == null)
             {

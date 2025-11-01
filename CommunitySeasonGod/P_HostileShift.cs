@@ -125,6 +125,11 @@ namespace CommunitySeasonGod
 
             Sel2_SeasonSelector selector = new Sel2_SeasonSelector(seasonGod, subGods, getCost() + additionalCost);
             List<string> targetLabels = new List<string> { "Random" };
+            if (Kernel_Season.opt_deckMode)
+            {
+                targetLabels.Add("Random (Shuffle Deck)");
+            }
+
             targetLabels.AddRange(subGods.Select<SubGod, string>(sg => sg.GetName() + " (" + sg.GetKeywords() + ")"));
             map.world.ui.addBlocker(map.world.prefabStore.getScrollSetText(targetLabels, false, selector, "Choose New Season", "Select the season to immediately transition to.").gameObject);
         }

@@ -29,20 +29,47 @@ namespace CommunitySeasonGod
 
         public void selectableClicked(string text, int index)
         {
-            if (index == 0)
+            if (Kernel_Season.opt_deckMode)
             {
-                SubGod subGod = God.SelectRandomSelectableSubGod();
-                if (subGod == null)
+                if (index < 2) // Index 0 & Index 1 = random
                 {
-                    Console.WriteLine("ComSeasonGod: Unable to switch to random selectable sub-god: No new selectable sub-god available.");
+                    if (index == 1) // Index 1 == random with shuffle.
+                    {
+                        God.ShuffleSubGodDeck();
+                    }
+
+                    SubGod subGod = God.SelectRandomSelectableSubGod();
+                    if (subGod == null)
+                    {
+                        Console.WriteLine("ComSeasonGod: Unable to switch to random selectable sub-god: No new selectable sub-god available.");
+                        return;
+                    }
+
+                    God.ChangeSubGod(subGod, false);
                     return;
                 }
 
-                God.ChangeSubGod(subGod, false);
-                return;
+                index -= 2; // Offset the index to align the label indexes with the sub-god indexes, ignoring the random options
+            }
+            else
+            {
+                if (index == 0) // Index 1 = random
+                {
+                    SubGod subGod = God.SelectRandomSelectableSubGod();
+                    if (subGod == null)
+                    {
+                        Console.WriteLine("ComSeasonGod: Unable to switch to random selectable sub-god: No new selectable sub-god available.");
+                        return;
+                    }
+
+                    God.ChangeSubGod(subGod, false);
+                    return;
+                }
+
+                index--; // Offset the index to align the label indexes with the sub-god indexes, ignoring the random option
             }
 
-            God.ChangeSubGod(Targets[index - 1], false);
+            God.ChangeSubGod(Targets[index], false);
         }
     }
 }
