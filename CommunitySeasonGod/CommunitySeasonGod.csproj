@@ -62,6 +62,7 @@
     <Compile Include="Pr_FeyPresence.cs" />
     <Compile Include="P_AmicableShift.cs" />
     <Compile Include="P_HostileShift.cs" />
+    <Compile Include="P_Stasis.cs" />
     <Compile Include="Sel2_SeasonSelector.cs" />
     <Compile Include="SubGod_Hunt\P_Season_HuntBonus.cs" />
     <Compile Include="SubGod_Wind\P_Season_WindCurrent.cs" />

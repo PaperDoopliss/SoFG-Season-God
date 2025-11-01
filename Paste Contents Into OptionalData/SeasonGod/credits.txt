@@ -38,3 +38,9 @@ Title:
 Artist: 
 Date: 
 License: 
+
+File Name: Icon_Stasis.jpg
+Title: A View of a Lake in the Mountains
+Artist: George Caleb Bingham
+Date: circa 1856-1859
+License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/

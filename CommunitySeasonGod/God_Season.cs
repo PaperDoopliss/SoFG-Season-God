@@ -54,8 +54,35 @@ namespace CommunitySeasonGod
         [SerializeField]
         protected List<Trait> _supplicantStartningTraits;
 
-        public int TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
-        public bool HasClungToThrone = false;
+        [SerializeField]
+        protected int _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+        public int TurnsRemainingInSeason => _turnsRemainingInSeason;
+
+        [SerializeField]
+        protected bool _stasisUsed = false;
+        public bool StasisUsed
+        {
+            get
+            {
+                return _stasisUsed;
+            }
+            set
+            {
+                if (value)
+                {
+                    for (int i = 0; i < powers.Count; i++)
+                    {
+                        if (powers[i] is P_Stasis)
+                        {
+                            powers.RemoveAt(i);
+                            powerLevelReqs.RemoveAt(i);
+                        }
+                    }
+                }
+                _stasisUsed = value;
+            }
+        }
+
         public bool LastShiftWasNatural = false;
 
         public override void setup(Map map)
@@ -117,7 +144,7 @@ namespace CommunitySeasonGod
             }
 
             Kernel_Season.Instance.HasHostileShift = true;
-            TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+            _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
             map.overmind.availableEnthrallments = 2;
             ChangeSubGod();
         }
@@ -286,6 +313,19 @@ namespace CommunitySeasonGod
                 default:
                     return "Generic win from a strange VP source!";
             };
+        }
+
+        public bool TryApplyStasis()
+        {
+            if (StasisUsed)
+            {
+                return false;
+            }
+
+            _turnsRemainingInSeason += Math.Max(10, Kernel_Season.opt_seasonLength / 2);
+            StasisUsed = true;
+
+            return true;
         }
 
         public List<SubGod> GetSelectableSubGods()
@@ -467,6 +507,7 @@ namespace CommunitySeasonGod
             }
 
             LastShiftWasNatural = transitionNaturally;
+            StasisUsed = false;
 
             ActiveSubGod?.OnDeactivate(map, newSubGod, transitionNaturally);
 
@@ -533,7 +574,7 @@ namespace CommunitySeasonGod
                 }
             }
 
-            TurnsRemainingInSeason = Kernel_Season.opt_seasonLength;
+            _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
         }
 
         public override void turnTick()
@@ -545,7 +586,7 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            TurnsRemainingInSeason--;
+            _turnsRemainingInSeason--;
             if (TurnsRemainingInSeason <= 0)
             {
                 ChangeSubGod();
