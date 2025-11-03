@@ -23,12 +23,17 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Brings up a list of seasons which you can immediately switch to, allowing early transition to a season of your choice. You do not receive the bonus powers or effects that come with a natural season transition. This power costs 3 when cast of a location with less than 200.0 fey presence, 2 when on a location with less than 300.0 fey presence, and 1 if cast on a location with 3000.0 fey presence.";
+            return "Brings up a list of seasons which you can immediately switch to, allowing early transition to a season of your choice. You do not receive the bonus powers or effects that come with a natural season transition. This power costs 3 when cast of a location with fey presence between 100.0 (inclusively) and 200.0 (exclusively), 2 when cast on a location with fey presence between 200.0 (inclusively) and 300.0 (exclusively), and 1 when cast on a location with 300.0 fey presence.";
         }
 
         public override string getFlavour()
         {
-            return "The sky darkens, violent in it's suddenness. The wind howls across the landscape, stripping loose tiles from roofs. The changing of seasons has come unexpectedly, suddenly, and violently, casting the world anew.";
+            return "The sky darkens, violent in its suddenness. The wind howls across the landscape, stripping loose tiles from roofs. The changing of seasons has come unexpectedly, suddenly, and violently, casting the world anew.";
+        }
+
+        public override string getRestrictionText()
+        {
+            return "Target location must have a fey presence modifier with charge of at least 100.0. Casting cost is greater the lower the charge (displayed on target location).";
         }
 
         public override Sprite getIconFore()
