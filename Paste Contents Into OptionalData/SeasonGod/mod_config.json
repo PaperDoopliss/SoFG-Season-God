@@ -1,17 +1,33 @@
 {
 	"options":[
 		{
+			"name":"Deck of Seasons",
+			"description":"If enabled, the sub-gods are drawn from a deck which contains each season exactly once. Duplicates will not appear until a random option is chosen, or the deck runs out.\nIf disabled, the sub-gods will be selected at random. (default: true)",
+			"defaultBoolValue":"true"
+		},
+		{
 			"name":"Season Length",
-			"description":"The number of turns that normally pass before a new Noble takes their turn (default: 80)",
+			"description":"The number of turns that normally pass before a new Noble takes their turn. (default: 80)",
 			"isInteger":"true",
 			"minValue":1,
 			"maxValue":500,
 			"defaultValue":80
 		},
 		{
-			"name":"Deck of Seasons",
-			"description":"If enabled, the sub-gods (seasons) are drawn from a deck containing each season exactly once. Duplicates will not appear until the deck is re-shuffled.\nIf disabled, the sub-gods (seasons) will be selected at random. (default: true)",
-			"defaultBoolValue":"true"
+			"name":"Natural Draft Size",
+			"description":"The number of sub-gods that you get to choose from when naturally transitioning from one sub-god to another. (default: 3)",
+			"isInteger":"true",
+			"minValue":0,
+			"maxValue":7,
+			"defaultValue":3
+		},
+		{
+			"name":"Selection Draft Size",
+			"description":"The number of sub-gods that you get to choose from when using a power to change from one sub-god to another. (default: 3)",
+			"isInteger":"true",
+			"minValue":0,
+			"maxValue":7,
+			"defaultValue":3
 		},
 		{
 			"name":"Enable: Master of the Hunt",

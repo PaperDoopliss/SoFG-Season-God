@@ -23,6 +23,8 @@ namespace CommunitySeasonGod
         public static bool opt_deckMode = true;
 
         public static int opt_seasonLength = 80;
+        public static int opt_draftSizeNatural = 3;
+        public static int opt_draftSizeSelection = 3;
         public static int opt_windEnabled = 1;
         public static int opt_huntEnabled = 1;
 
@@ -51,6 +53,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            EventModifications();
         }
 
         public override void afterLoading(Map map)
@@ -58,6 +61,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            EventModifications();
         }
 
         private void GetModKernels(Map map)
@@ -93,6 +97,12 @@ namespace CommunitySeasonGod
                 case "Season Length":
                     opt_seasonLength = value;
                     break;
+                case "Natural Draft Size":
+                    opt_draftSizeNatural = value;
+                    break;
+                case "Selection Draft Size":
+                    opt_draftSizeSelection = value;
+                    break;
                 case "Master of the Hunt Enabled":
                     opt_huntEnabled = value;
                     break;
@@ -109,6 +119,23 @@ namespace CommunitySeasonGod
                 case "Deck of Seasons":
                     opt_deckMode=value;
                     break;
+            }
+        }
+
+        public void EventModifications()
+        {
+            Dictionary<string, EventRuntime.Field> fields = EventRuntime.fields;
+            Dictionary<string, EventRuntime.Property> properties = EventRuntime.properties;
+
+            if (!properties.ContainsKey("CHOOSE_SEASON_SUBGOD"))
+            {
+                properties.Add("CHOOSE_SEASON_SUBGOD", new EventRuntime.TypedProperty<int>(delegate (EventContext c, int v)
+                {
+                    if (World.staticMap?.overmind.god is God_Season seasonGod)
+                    {
+                        seasonGod.PresentDraft();
+                    }
+                }));
             }
         }
 

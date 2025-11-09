@@ -21,6 +21,9 @@ namespace CommunitySeasonGod
         protected List<SubGod> _subGodDeck = new List<SubGod>();
 
         [SerializeField]
+        protected List<SubGod> _draft = new List<SubGod>();
+
+        [SerializeField]
         protected List<Power> _genericPowers = new List<Power>();
 
         [SerializeField]
@@ -60,30 +63,17 @@ namespace CommunitySeasonGod
 
         [SerializeField]
         protected bool _stasisUsed = false;
-        public bool StasisUsed
-        {
-            get
-            {
-                return _stasisUsed;
-            }
-            set
-            {
-                if (value)
-                {
-                    for (int i = 0; i < powers.Count; i++)
-                    {
-                        if (powers[i] is P_Stasis)
-                        {
-                            powers.RemoveAt(i);
-                            powerLevelReqs.RemoveAt(i);
-                        }
-                    }
-                }
-                _stasisUsed = value;
-            }
-        }
+        public bool StasisUsed { get; set; }
 
-        public bool LastShiftWasNatural = false;
+        [SerializeField]
+        protected bool _lastShiftWasNatural = false;
+        public bool LastShiftWasNatural => _lastShiftWasNatural;
+
+        [SerializeField]
+        protected bool _nextShiftIsNatural = true;
+        public bool NextShiftIsNatural => _nextShiftIsNatural;
+
+        public int ShiftPowerCost = -1;
 
         public override void setup(Map map)
         {
@@ -99,10 +89,10 @@ namespace CommunitySeasonGod
                 SubGods.Add(new SubGod_Wind(this, map));
             }
 
-            _genericPowers.Add(new P_AmicableShift(map));
-            _genericPowerLevelReqs.Add(0);
+            _genericPowers.Add(new P_Stasis(map));
+            _genericPowerLevelReqs.Add(2);
             _genericPowers.Add(new P_HostileShift(map));
-            _genericPowerLevelReqs.Add(0);
+            _genericPowerLevelReqs.Add(2);
         }
 
         public override string getName()
@@ -146,7 +136,10 @@ namespace CommunitySeasonGod
             Kernel_Season.Instance.HasHostileShift = true;
             _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
             map.overmind.availableEnthrallments = 2;
-            ChangeSubGod();
+
+            _nextShiftIsNatural = true;
+            CreateDraft(Array.Empty<SubGod>());
+            FireSeasonChangeEvent();
         }
 
         #region supplicant
@@ -319,175 +312,263 @@ namespace CommunitySeasonGod
         {
             if (StasisUsed)
             {
+                for (int i = 0; i < powers.Count; i++)
+                {
+                    if (powers[i] is P_Stasis)
+                    {
+                        powers.RemoveAt(i);
+                        powerLevelReqs.RemoveAt(i);
+                    }
+                }
+
                 return false;
             }
 
             _turnsRemainingInSeason += Math.Max(10, Kernel_Season.opt_seasonLength / 2);
             StasisUsed = true;
 
+            for (int i = 0; i < powers.Count; i++)
+            {
+                if (powers[i] is P_Stasis)
+                {
+                    powers.RemoveAt(i);
+                    powerLevelReqs.RemoveAt(i);
+                }
+            }
+
             return true;
         }
 
-        public List<SubGod> GetSelectableSubGods()
+        public void FireSeasonChangeEvent()
         {
+            if (!EventManager.events.TryGetValue("ComSeasonGod.shift_choose", out EventManager.ActiveEvent ae))
+            {
+                Console.WriteLine("ComSeasonGod: Unable to find season change event (\"ComSeasonGod.shift_choose\").");
+                map.addMessage("ERROR: Unable to find season change event (\"ComSeasonGod.shift_choose\").", 1.0, false);
+                return;
+            }
+
+            map.world.prefabStore.popEvent(ae.data, EventContext.withNothing(map), null, false);
+        }
+
+        public void CreateDraft()
+        {
+            if (ActiveSubGod != null)
+            {
+                CreateDraft(new SubGod[1] { ActiveSubGod });
+                return;
+            }
+
+            CreateDraft(Array.Empty<SubGod>());
+        }
+
+        public void CreateDraft(SubGod exclusion)
+        {
+            CreateDraft(new SubGod[1] { exclusion });
+        }
+
+        public void CreateDraft(IEnumerable<SubGod> exclusions)
+        {
+            int size;
+            if (NextShiftIsNatural)
+            {
+                size = Kernel_Season.opt_draftSizeNatural;
+            }
+            else
+            {
+                size = Kernel_Season.opt_draftSizeSelection;
+            }
+
             List<SubGod> subGods = new List<SubGod>();
-
-            foreach (SubGod subGod in SubGods)
+            bool deckDraw = Kernel_Season.opt_deckMode;
+            if (NextShiftIsNatural)
             {
-                if (subGod == ActiveSubGod)
+                if (deckDraw)
                 {
-                    continue;
+                    foreach (SubGod sub in _subGodDeck)
+                    {
+                        if (Kernel_Season.GetSubGodEnabledState(sub) == 3)
+                        {
+                            continue;
+                        }
+
+                        if (exclusions.Contains(sub))
+                        {
+                            continue;
+                        }
+
+                        subGods.Add(sub);
+                    }
+
+                    if (subGods.Count < size)
+                    {
+                        subGods.Clear();
+                        ResetSubGodDeck();
+                        deckDraw = false;
+                    }
                 }
 
-                int enabledState = Kernel_Season.GetSubGodEnabledState(subGod);
-                if (enabledState == 0 || enabledState == 2)
+                if (!deckDraw)
                 {
-                    continue;
+                    foreach (SubGod subGod in SubGods)
+                    {
+                        int enableState = Kernel_Season.GetSubGodEnabledState(subGod);
+                        if (enableState == 0 || enableState == 3)
+                        {
+                            continue;
+                        }
+
+                        if (exclusions.Contains(subGod))
+                        {
+                            continue;
+                        }
+
+                        subGods.Add(subGod);
+                    }
+                }
+            }
+            else
+            {
+                if (deckDraw)
+                {
+                    foreach (SubGod sub in _subGodDeck)
+                    {
+                        if (Kernel_Season.GetSubGodEnabledState(sub) == 2)
+                        {
+                            continue;
+                        }
+
+                        if (exclusions.Contains(sub))
+                        {
+                            continue;
+                        }
+
+                        subGods.Add(sub);
+                    }
+
+                    if (subGods.Count < size)
+                    {
+                        subGods.Clear();
+                        ResetSubGodDeck();
+                        deckDraw = false;
+                    }
                 }
 
-                subGods.Add(subGod);
+                if (!deckDraw)
+                {
+                    foreach (SubGod sub in SubGods)
+                    {
+                        int enableState = Kernel_Season.GetSubGodEnabledState(sub);
+                        if (enableState == 0 || enableState == 2)
+                        {
+                            continue;
+                        }
+
+                        if (exclusions.Contains(sub))
+                        {
+                            continue;
+                        }
+
+                        subGods.Add(sub);
+                    }
+                }
             }
 
-            return subGods;
+            _draft.Clear();
+            while (_draft.Count < size && subGods.Count > 0)
+            {
+                int index = Eleven.random.Next(subGods.Count);
+                _draft.Add(subGods[index]);
+                subGods.RemoveAt(index);
+            }
         }
 
-        public SubGod SelectRandomSelectableSubGod()
-        {
-            List<SubGod> subGods = GetSelectableSubGods();
-            if (subGods.Count == 0)
-            {
-                Console.WriteLine("ComSeasonGod: Unable to select random sub god from selectable sub gods: No selectable sub gods available.");
-                return null;
-            }
-
-            return subGods[Eleven.random.Next(subGods.Count)];
-        }
-
-        public bool CheckShuffleSubGodDeck()
-        {
-            if (_subGodDeck.Count != 0)
-            {
-                return false;
-            }
-
-            if (SubGods.Count == 0 || SubGods.All(sg => Kernel_Season.GetSubGodEnabledState(sg) == 0 || Kernel_Season.GetSubGodEnabledState(sg) == 3))
-            {
-                return false;
-            }
-
-            ShuffleSubGodDeck();
-
-            if (_subGodDeck.Count == 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public void ShuffleSubGodDeck()
+        public void ResetSubGodDeck()
         {
             _subGodDeck.Clear();
-            
-            foreach (SubGod season in SubGods)
+            foreach (SubGod subGod in SubGods)
             {
-                int enabledState = Kernel_Season.GetSubGodEnabledState(season);
-                if (enabledState == 0 || enabledState == 3)
+                int enableState = Kernel_Season.GetSubGodEnabledState(subGod);
+                if (enableState == 0)
                 {
                     continue;
                 }
 
-                _subGodDeck.Add(season);
-            }
-
-            // Fisher–Yates shuffle - A simple linear O(n) shuffling algorithm with uniform results.
-            for (int i = _subGodDeck.Count - 1; i > 0; i--)
-            {
-                int index = Eleven.random.Next(i + 1); // Random number from 0 to i, inclusively.
-                if (index == i)
-                {
-                    continue;
-                }
-
-                SubGod season = _subGodDeck[index];
-                _subGodDeck[index] = _subGodDeck[i];
-                _subGodDeck[i] = season;
+                _subGodDeck.Add(subGod);
             }
         }
 
-        public SubGod DrawSubGod()
+        public void PresentDraft()
         {
-            if (!CheckShuffleSubGodDeck() && _subGodDeck.Count == 0)
-            {
-                Console.WriteLine("ComSeasonGod: Unable to draw sub-god: No new sub-god available.");
-                return null;
-            }
-            int lastIndex = _subGodDeck.Count - 1;
-            SubGod season = _subGodDeck[lastIndex];
-            _subGodDeck.RemoveAt(lastIndex);
+            Sel2_SeasonSelector selector = new Sel2_SeasonSelector(this, _draft, ShiftPowerCost);
+            List<string> targetLabels = new List<string> { "Random" };
 
-            return season;
+            targetLabels.AddRange(_draft.Select<SubGod, string>(sg => sg.GetName() + " (" + sg.GetKeywords() + ")"));
+            map.world.ui.addBlocker(map.world.prefabStore.getScrollSetText(targetLabels, false, selector, "Choose New Season", "Select the season to immediately transition to.").gameObject);
         }
 
-        public SubGod PeekSubGodDeck()
+        public void ChangeSubGodRandom(IEnumerable<SubGod> exclusions)
         {
-            if (!CheckShuffleSubGodDeck() && _subGodDeck.Count == 0)
+            List<SubGod> subGods = new List<SubGod>();
+            bool deckDraw = Kernel_Season.opt_deckMode;
+
+            if (Kernel_Season.opt_deckMode)
             {
-                Console.WriteLine("ComSeasonGod: Unable to draw sub-god: No new sub-god available.");
-                return null;
+                ResetSubGodDeck();
             }
 
-            return _subGodDeck[_subGodDeck.Count - 1];
+            if (NextShiftIsNatural)
+            {
+                foreach (SubGod subGod in SubGods)
+                {
+                    int enableState = Kernel_Season.GetSubGodEnabledState(subGod);
+                    if (enableState == 0 || enableState == 3)
+                    {
+                        continue;
+                    }
+
+                    if (exclusions.Contains(subGod))
+                    {
+                        continue;
+                    }
+
+                    subGods.Add(subGod);
+                }
+            }
+            else
+            {
+                foreach (SubGod subGod in SubGods)
+                {
+                    int enableState = Kernel_Season.GetSubGodEnabledState(subGod);
+                    if (enableState == 0 || enableState == 2)
+                    {
+                        continue;
+                    }
+
+                    if (exclusions.Contains(subGod))
+                    {
+                        continue;
+                    }
+
+                    subGods.Add(subGod);
+                }
+            }
+
+            if (subGods.Count == 0)
+            {
+                Console.WriteLine("ComSeasonGod: Unable to randomly switch sub-god: No new sub-god available.");
+                map.addMessage("ERROR: No new sub god selected when trying to change sub god. The current sub god will be picked again.", 1.0, false);
+            }
+            else
+            {
+                ChangeSubGod(subGods[Eleven.random.Next(subGods.Count)]);
+            }
+                
         }
 
-        public SubGod SelectRandomSubGod()
+        public void ChangeSubGod(SubGod newSubGod)
         {
-            // A linear streaming-based random selection algorithm that gives uniform results. Allows pre-processing of values without list duplication.
-            SubGod result = null;
-            int n = 1;
-            foreach (SubGod season in SubGods)
-            {
-                if (season == ActiveSubGod)
-                {
-                    continue;
-                }
-
-                int enabledState = Kernel_Season.GetSubGodEnabledState(season);
-                if (enabledState == 0 || enabledState == 3)
-                {
-                    continue;
-                }
-
-                if (Eleven.random.Next(n) == 0)
-                {
-                    result = season;
-                }
-
-                n++;
-            }
-
-            if (result == null)
-            {
-                Console.WriteLine("ComSeasonGod: Unable to select random sub-god: No new sub-god available.");
-            }
-
-            return result;
-        }
-
-        public void ChangeSubGod(SubGod newSubGod = null, bool transitionNaturally = true)
-        {
-            if (newSubGod == null)
-            {
-                if (Kernel_Season.opt_deckMode)
-                {
-                    newSubGod = DrawSubGod();
-                }
-                else
-                {
-                    newSubGod = SelectRandomSubGod();
-                }
-            }
-            else if (Kernel_Season.opt_deckMode)
+            if (Kernel_Season.opt_deckMode)
             {
                 _subGodDeck.Remove(newSubGod);
             }
@@ -497,19 +578,32 @@ namespace CommunitySeasonGod
                 Console.WriteLine("ComSeasonGod: Unable to switch sub-god: No new sub-god available.");
                 if (ActiveSubGod != null)
                 {
+                    map.addMessage("ERROR: No new sub god selected when trying to change sub god. The current sub god will be picked again.", 1.0, false);
                     newSubGod = ActiveSubGod;
                 }
                 else
                 {
+                    map.addMessage("ERROR: No new sub god selected when trying to change sub god.", 1.0, false);
                     Console.WriteLine("ComSeasonGod: ERROR: No active sub-god.");
                     return;
                 }
             }
 
-            LastShiftWasNatural = transitionNaturally;
+            _lastShiftWasNatural = NextShiftIsNatural;
+            _nextShiftIsNatural = false;
+            ShiftPowerCost = -1;
             StasisUsed = false;
 
-            ActiveSubGod?.OnDeactivate(map, newSubGod, transitionNaturally);
+            SubGod lastSubGod = ActiveSubGod;
+            if (lastSubGod == null)
+            {
+                CreateDraft(new SubGod[1] { newSubGod });
+            }
+            else
+            {
+                CreateDraft(new SubGod[2] { newSubGod, lastSubGod });
+                lastSubGod.OnDeactivate(map, newSubGod, _lastShiftWasNatural);
+            }
 
             powers.Clear();
             powerLevelReqs.Clear();
@@ -517,7 +611,7 @@ namespace CommunitySeasonGod
             powers.AddRange(_genericPowers);
             powerLevelReqs.AddRange(_genericPowerLevelReqs);
 
-            if (transitionNaturally)
+            if (_lastShiftWasNatural)
             {
                 powers.AddRange(_bonusGenericPowers);
                 powerLevelReqs.AddRange(_bonusGenericPowerLevelReqs);
@@ -526,7 +620,7 @@ namespace CommunitySeasonGod
             powers.AddRange(newSubGod.Powers);
             powerLevelReqs.AddRange(newSubGod.PowerLevelReqs);
 
-            if (transitionNaturally)
+            if (_lastShiftWasNatural)
             {
                 powers.AddRange(newSubGod.BonusPowers);
                 powerLevelReqs.AddRange(newSubGod.BonusPowerLevelReqs);
@@ -542,19 +636,18 @@ namespace CommunitySeasonGod
                 limitedPower.ResetCharges();
             }
 
-            SubGod lastSeason = _activeSubGod;
             _activeSubGod = newSubGod;
 
-            newSubGod.OnActivate(map, ActiveSubGod, transitionNaturally);
+            newSubGod.OnActivate(map, ActiveSubGod, _lastShiftWasNatural);
 
             foreach (SubGod subGod in SubGods)
             {
-                subGod.OnSubGodTransition(map, lastSeason, _activeSubGod, transitionNaturally);
+                subGod.OnSubGodTransition(map, lastSubGod, _activeSubGod, _lastShiftWasNatural);
             }
 
             CheckRespawnSupplicant();
 
-            if (!transitionNaturally || ActiveSubGod.GetEventPathBonus() == "")
+            if (!_lastShiftWasNatural || ActiveSubGod.GetEventPathBonus() == "")
             {
                 if (ActiveSubGod.GetEventPath() != "")
                 {
@@ -589,7 +682,10 @@ namespace CommunitySeasonGod
             _turnsRemainingInSeason--;
             if (TurnsRemainingInSeason <= 0)
             {
-                ChangeSubGod();
+                _nextShiftIsNatural = true;
+                ShiftPowerCost = -1;
+                CreateDraft(ActiveSubGod);
+                FireSeasonChangeEvent();
             }
 
             foreach (SubGod subGod in SubGods)
@@ -597,13 +693,11 @@ namespace CommunitySeasonGod
                 if (subGod == ActiveSubGod)
                 {
                     subGod.TurnTick_Active(map);
+                    continue;
                 }
-                else
-                {
-                    subGod.TurnTick_Inactive(map);
-                }
-            }
 
+                subGod.TurnTick_Inactive(map);
+            }
         }
     }
 }

@@ -112,31 +112,15 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            List<SubGod> subGods = seasonGod.GetSelectableSubGods();
-            if (subGods.Count == 0)
-            {
-                map.overmind.power += getCost();
-                return;
-            }
+            int cost = GetCost(loc);
+            int additionalCost = cost - getCost();
 
-            int additionalCost = GetCost(loc) - getCost();
-
-            if (additionalCost > 0)
-            {
-                map.overmind.power -= additionalCost;
-            }
+            map.overmind.power -= additionalCost;
             Pr_FeyPresence feyPresence = (Pr_FeyPresence)loc.properties.FirstOrDefault(pr => pr is Pr_FeyPresence);
             loc.properties.Remove(feyPresence);
 
-            Sel2_SeasonSelector selector = new Sel2_SeasonSelector(seasonGod, subGods, getCost() + additionalCost);
-            List<string> targetLabels = new List<string> { "Random" };
-            if (Kernel_Season.opt_deckMode)
-            {
-                targetLabels.Add("Random (Shuffle Deck)");
-            }
-
-            targetLabels.AddRange(subGods.Select<SubGod, string>(sg => sg.GetName() + " (" + sg.GetKeywords() + ")"));
-            map.world.ui.addBlocker(map.world.prefabStore.getScrollSetText(targetLabels, false, selector, "Choose New Season", "Select the season to immediately transition to.").gameObject);
+            seasonGod.ShiftPowerCost = cost;
+            seasonGod.PresentDraft();
         }
     }
 }

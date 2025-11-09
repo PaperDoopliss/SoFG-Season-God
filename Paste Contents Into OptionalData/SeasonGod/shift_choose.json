@@ -1,0 +1,28 @@
+{
+	"id": "ComSeasonGod.shift_choose",
+	"modCredit": "",
+	"imgCredit": "A fight in an inn by Jan van der Venne",
+	"image": "default.0_abyssalFaith.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "The Seasons Change",
+	"description": "The world turns. One season fades, and another rises. The perpetual cycle continues.",
+
+	"choices": [
+		{
+			"name": "Choose the next Season",
+			"description":"Presents a choice of seasons from which to choose. Canceling will give a random result.",
+			"outcomes": [
+				{
+					"weight": 1.0,
+					"effects": [
+						{"command": "CHOOSE_SEASON_SUBGOD", "argument": "1"}
+					]
+				}
+			]
+		}
+	]
+}
