@@ -1,12 +1,12 @@
 {
-	"id": "comseason.shift_wind",
+	"id": "ComSeasonGod.shift_wind",
 	"modCredit": "",
 	"imgCredit": "A fight in an inn by Jan van der Venne",
 	"image": "default.0_abyssalFaith.jpg",
 	
 	"type": "INERT",
 	"conditional": "1=1",
-	"probability": 1,
+	"probability": 0,
 
 	"name": "The Windy Season",
 	"description": "Placeholder event for when you switch to the Painter of Winds.",
