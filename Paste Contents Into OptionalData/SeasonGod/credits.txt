@@ -33,14 +33,26 @@ Date: 1816
 Source: https://www.rawpixel.com/image/9202730/joshua-commanding-the-sun-stand-still
 License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/
 
-File Name: 
-Title: 
-Artist: 
-Date: 
-License: 
-
 File Name: Icon_Stasis.jpg
 Title: A View of a Lake in the Mountains
 Artist: George Caleb Bingham
 Date: circa 1856-1859
 License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/
+
+File Name: god_background.jpg
+Title: Season God (Preliminary Sketch)
+Artist: Discord community member Padex (padex)
+Date: 
+License: Voluntarily created for and donated to the Community Season God
+
+File Name: Icon_FeyPresence_Background.png
+Title: 
+Artist: Discord community member Precipi (precipitationnation)
+Date: 
+License: Voluntarily created for and donated to the Community Season God
+
+File Name: 
+Title: 
+Artist: 
+Date: 
+License: 

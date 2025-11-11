@@ -36,14 +36,14 @@ namespace CommunitySeasonGod
             return base.getSprite(world);
         }
 
-        public override bool hasHexView()
+        public override bool hasBackgroundHexView()
         {
             return true;
         }
 
         public override Sprite getHexBackgroundSprite()
         {
-            return map.world.iconStore.fadedRaiding;
+            return EventManager.getImg("ComSeasonGod.Icon_FeyPresence_Background.png");
         }
     }
 }
