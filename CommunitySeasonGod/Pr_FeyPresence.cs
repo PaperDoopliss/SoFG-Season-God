@@ -36,7 +36,7 @@ namespace CommunitySeasonGod
             return base.getSprite(world);
         }
 
-        public override bool hasHexView()
+        public override bool hasBackgroundHexView()
         {
             return true;
         }
