@@ -43,7 +43,7 @@ namespace CommunitySeasonGod
 
         public override Sprite getHexBackgroundSprite()
         {
-            return map.world.iconStore.fadedRaiding;
+            return EventManager.getImg("ComSeasonGod.Icon_FeyPresence_Background.png");
         }
     }
 }
