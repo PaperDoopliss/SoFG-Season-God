@@ -63,6 +63,15 @@
     <Compile Include="P_HostileShift.cs" />
     <Compile Include="P_Stasis.cs" />
     <Compile Include="Sel2_SeasonSelector.cs" />
+    <Compile Include="SubGod_Decay\Act_SpreadWilt.cs" />
+    <Compile Include="SubGod_Decay\DecayConsts.cs" />
+    <Compile Include="SubGod_Decay\Pr_Wilting.cs" />
+    <Compile Include="SubGod_Decay\P_Season_FallFestival.cs" />
+    <Compile Include="SubGod_Decay\UM_WiltedHorde.cs" />
+    <Compile Include="SubGod_Decay\Sub_WiltedRuins.cs" />
+    <Compile Include="SubGod_Decay\Set_WiltedGrove.cs" />
+    <Compile Include="SubGod_Decay\P_Season_AutumnsCaress.cs" />
+    <Compile Include="SubGod_Decay\SubGod_Decay.cs" />
     <Compile Include="SubGod_Hunt\P_Season_HuntBonus.cs" />
     <Compile Include="SubGod_Wind\P_Season_WindCurrent.cs" />
     <Compile Include="SubGod_Hunt\P_Season_HuntCamouflage.cs" />

@@ -27,6 +27,7 @@ namespace CommunitySeasonGod
         public static int opt_draftSizeSelection = 3;
         public static int opt_windEnabled = 1;
         public static int opt_huntEnabled = 1;
+        public static int opt_decayEnabled = 1;
 
         public bool HasHostileShift = false;
 
@@ -38,6 +39,8 @@ namespace CommunitySeasonGod
                     return opt_huntEnabled;
                 case SubGod_Wind _:
                     return opt_windEnabled;
+                case SubGod_Decay _:
+                    return opt_decayEnabled;
                 default:
                     return 0;
             }
@@ -108,6 +111,9 @@ namespace CommunitySeasonGod
                     break;
                 case "Painter of Winds Enabled":
                     opt_windEnabled = value;
+                    break;
+                case "Lady of Wilted Leaves Enabled":
+                    opt_decayEnabled = value;
                     break;
             }
         }
