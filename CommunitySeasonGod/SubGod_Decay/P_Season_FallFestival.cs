@@ -16,17 +16,17 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return $"Cast on an infiltrated settlement to immedaitely set the location <b>{DecayConsts.Wilting.ToLower()}</b> to 50%.";
+            return $"Cast on an infiltrated settlement to immediately set the location <b>fey presence</b> to 50%.";
         }
 
         public override string getFlavour()
         {
-            return "Though the festival was strange and pagan, no voice rose in dissent as the pumpkins were carted in and the straw pyres erected in every square, and thus no questions were asked. Faces both uncommonly new and old danced into the night, the auburn haired beauty never far from sight, as she leads the partying townsfolk in willingly ushering in a season of beautiful leaves and withered crops.\r\n";
+            return "Though the festival was strange and pagan, no voice rose in dissent as the pumpkins were carted in and the straw pyres erected in every square, and thus no questions were asked. Faces both uncommonly new and old danced into the night, the auburn haired beauty never far from sight, as she leads the partying townsfolk in willingly ushering in a season of beautiful leaves and withered crops.";
         }
 
         public override string getRestrictionText()
         {
-            return $"Must target be a settlement with a greater <b>{DecayConsts.Wilting.ToLower()}</b> modifier than its current population.";
+            return $"Must target an infiltrated settlement with less than 50% <b>fey presence</b>.";
         }
 
         public override Sprite getIconFore()
@@ -43,7 +43,7 @@ namespace CommunitySeasonGod
         {
             if (!(loc.settlement is SettlementHuman)) return false;
             var settlement = (SettlementHuman)loc.settlement;
-            var fey = loc.properties.FirstOrDefault(p => p.getInvariantName() == "Fey Presence");
+            Pr_FeyPresence fey = loc.properties.OfType<Pr_FeyPresence>().FirstOrDefault();
             if ((fey == null || fey.charge < 50) && settlement.isInfiltrated) return true;
             return false;
         }
@@ -53,7 +53,15 @@ namespace CommunitySeasonGod
         public override void cast(Location loc)
         {
             base.cast(loc);
-            loc.properties.Add();
+            Pr_FeyPresence fey = loc.properties.OfType<Pr_FeyPresence>().FirstOrDefault();
+            if (fey == null)
+            {
+                fey.charge = 50;
+                loc.properties.Add(fey);
+            }
+            else if (fey.charge < 50) {
+                fey.charge = 50;
+            }
         }
 
     }

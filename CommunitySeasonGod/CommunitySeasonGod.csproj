@@ -65,7 +65,14 @@
     <Compile Include="Sel2_SeasonSelector.cs" />
     <Compile Include="SubGod_Decay\Act_SpreadWilt.cs" />
     <Compile Include="SubGod_Decay\DecayConsts.cs" />
+    <Compile Include="SubGod_Decay\T_FallHerald.cs" />
+    <Compile Include="SubGod_Decay\T_RotHerald.cs" />
+    <Compile Include="SubGod_Decay\Pr_InevitableDecay.cs" />
     <Compile Include="SubGod_Decay\Pr_Wilting.cs" />
+    <Compile Include="SubGod_Decay\P_Season_SpreadingRot.cs" />
+    <Compile Include="SubGod_Decay\P_Season_InevitableDecay.cs" />
+    <Compile Include="SubGod_Decay\P_Season_WitherCrops.cs" />
+    <Compile Include="SubGod_Decay\P_Season_CycleOfDecay.cs" />
     <Compile Include="SubGod_Decay\P_Season_FallFestival.cs" />
     <Compile Include="SubGod_Decay\UM_WiltedHorde.cs" />
     <Compile Include="SubGod_Decay\Sub_WiltedRuins.cs" />

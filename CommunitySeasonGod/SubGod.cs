@@ -71,6 +71,9 @@ namespace CommunitySeasonGod
         //If blank, a generic contextual message displays if this SubGod is active upon victory
         public virtual string GetVictoryMessage() { return ""; }
 
+        //If blank, fey presence will not do anything on TurnTick
+        public virtual void FeyPresenceTurnTick(Property fey) { }
+
         #region Supplkicant
         public virtual Sprite GetSupplicantSprite()
         {

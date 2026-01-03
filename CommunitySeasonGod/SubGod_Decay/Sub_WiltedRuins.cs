@@ -18,6 +18,7 @@ namespace CommunitySeasonGod
             this.challenges = new List<Challenge>();
             this.challenges.Add((Challenge)new Ch_LayLowWilderness(set.location));
             this.infiltrated = true;
+            this.menace = 20;
         }
 
         public override string getName() => "Wilted Ruins";

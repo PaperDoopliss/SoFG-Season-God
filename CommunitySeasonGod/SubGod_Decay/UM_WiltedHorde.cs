@@ -3,6 +3,7 @@ using Assets.Code.Modding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using static SortedDictionaryProvider;
@@ -39,7 +40,7 @@ namespace CommunitySeasonGod
         {
             base.turnTickInner(map);
             var settlement = (SettlementHuman)this.location.settlement;
-            var decay = this.location.properties.FirstOrDefault(pr => pr.getInvariantName() == DecayConsts.Wilting);
+            var decay = this.location.properties.OfType<Pr_Wilting>().FirstOrDefault();
 
             if (settlement != null)
             {
@@ -48,10 +49,8 @@ namespace CommunitySeasonGod
                     this.location.properties.Add(new Pr_Wilting(this.location).WithCharges(2));
                 }
                 else {
-                    decay.charge += 2;
+                    decay.influences.Add(new ReasonMsg($"Besieged by {this.getName()}", 2));
                 }
-
-                if (decay.charge >= 100) P_Season_AutumnsCaress.ConvertToWiltedGrove(this.location);
                 
             }
         }

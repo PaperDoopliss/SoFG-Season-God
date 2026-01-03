@@ -11,7 +11,9 @@ namespace CommunitySeasonGod
     public class Pr_Wilting : Property
     {
 
-        public Pr_Wilting(Location loc) : base(loc) { }
+        public Pr_Wilting(Location loc) : base(loc) {
+            this.charge = 0.0001;
+        }
 
         public override string getName() => DecayConsts.Wilting;
 
@@ -19,42 +21,27 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "The land grows heavy with rot and decay.";
+            return @"The land grows heavy with rot and decay.
+
+Increases by 1% each time population in the settlement is reduced by plague and 2% when reduced by famine.
+
+Decays by 0.5% each turn if <b>fey presence</b> is below 50%.";
         }
 
         public override string getCrisis()
         {
-            return "When this mdofiers reaches 100%, the settlement is transformed into a Wilted Grove.";
+            return "When this modifier reaches 100%, the settlement is transformed into a Wilted Grove.";
         }
 
         public override void turnTick()
         {
-            var plague = this.location.properties.FirstOrDefault(pr => pr.getPropType() == standardProperties.PLAGUE);
-            var famine = this.location.properties.FirstOrDefault(pr => pr.getPropType() == standardProperties.FAMINE);
+            SubGod_Decay.GeneratePassiveWilting(this.location);
 
-            if (!(this.location.settlement is SettlementHuman)) return;
+            var fey = this.location.properties.OfType<Pr_FeyPresence>().FirstOrDefault();
 
-            if (plague != null)
-            {
-                if (plague.charge > 100)
-                    this.charge += 2;
-                else
-                    this.charge += 1;
-            }
+            if (fey != null && fey.charge >= 50) return;
 
-            if (famine != null)
-            {
-                if (famine.charge >= 100 && famine.charge < 200)
-                    this.charge += 2;
-                else
-                    this.charge += Math.Max(2, (this.location.settlement as SettlementHuman).population * 0.05f);
-            }
-
-
-            if (this.charge == 100)
-            {
-                P_Season_AutumnsCaress.ConvertToWiltedGrove(this.location);
-            }
+            this.influences.Add(new ReasonMsg("Fey Presence Below 50%", -0.05f));
         }
 
         public override bool survivesRuin() => true;
@@ -73,7 +60,7 @@ namespace CommunitySeasonGod
 
         public override Sprite getHexBackgroundSprite() => this.map.world.iconStore.death;
 
-        public Pr_Wilting WithCharges(int charges)
+        public Pr_Wilting WithCharges(double charges)
         {
             this.charge = charges;
             return this;

@@ -30,7 +30,7 @@ The size of the new grove is based on the population of the city it was created 
 
         public override string getRestrictionText()
         {
-            return $"Must target be a settlement with a greater <b>{DecayConsts.Wilting.ToLower()}</b> modifier than its current population.";
+            return $"Must target a settlement with a greater <b>{DecayConsts.Wilting.ToLower()}</b> modifier than its current population.";
         }
 
         public override Sprite getIconFore()

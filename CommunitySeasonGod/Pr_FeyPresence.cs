@@ -41,6 +41,12 @@ namespace CommunitySeasonGod
             return true;
         }
 
+        public override void turnTick()
+        {
+            if (!(this.map.overmind.god is God_Season)) return;
+            (this.map.overmind.god as God_Season).ActiveSubGod.FeyPresenceTurnTick(this);
+        }
+
         public override Sprite getHexBackgroundSprite()
         {
             return EventManager.getImg("ComSeasonGod.Icon_FeyPresence_Background.png");
