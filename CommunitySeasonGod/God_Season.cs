@@ -158,6 +158,7 @@ namespace CommunitySeasonGod
             if (ActiveSubGod != null)
             {
                 _supplicantSprite = ActiveSubGod.GetSupplicantSprite();
+                return;
             }
 
             _supplicantSprite = map.world.textureStore.agent_supplicantSnake;
@@ -183,7 +184,6 @@ namespace CommunitySeasonGod
             if (_supplicantStartningTraits == null || _supplicantStartningTraits.Count == 0)
             {
                 FetchSupplcantStartingTraits();
-                
             }
 
             return _supplicantStartningTraits;
@@ -194,6 +194,7 @@ namespace CommunitySeasonGod
             if (ActiveSubGod != null && ActiveSubGod.HasSupplicantStartingTraits())
             {
                 _supplicantStartningTraits = ActiveSubGod.GetSupplicantStartingTraits();
+                return;
             }
 
             _supplicantStartningTraits = new List<Trait>();
