@@ -19,7 +19,7 @@ namespace CommunitySeasonGod
         {
             if (playerControlledUnits.Any(u => u is UAE_Supplicant))
             {
-                return recruitmentCapUsed--;
+                return recruitmentCapUsed /*--*/ - 1;
             }
 
             return recruitmentCapUsed;
