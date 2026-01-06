@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-
 namespace CommunitySeasonGod
 {
 
@@ -27,6 +26,7 @@ namespace CommunitySeasonGod
         public static int opt_draftSizeSelection = 3;
         public static int opt_windEnabled = 1;
         public static int opt_huntEnabled = 1;
+        public static int opt_harvestEnabled = 1;
 
         public bool HasHostileShift = false;
 
@@ -38,6 +38,8 @@ namespace CommunitySeasonGod
                     return opt_huntEnabled;
                 case SubGod_Wind _:
                     return opt_windEnabled;
+                case SubGod_Harvest _:
+                    return opt_harvestEnabled;
                 default:
                     return 0;
             }
@@ -103,11 +105,14 @@ namespace CommunitySeasonGod
                 case "Selection Draft Size":
                     opt_draftSizeSelection = value;
                     break;
-                case "Master of the Hunt Enabled":
+                case "Enable: Master of the Hunt":
                     opt_huntEnabled = value;
                     break;
-                case "Painter of Winds Enabled":
+                case "Enable: Painter of Winds":
                     opt_windEnabled = value;
+                    break;
+                case "Enable: Uncle of the Harvest":
+                    opt_harvestEnabled = value;
                     break;
             }
         }
@@ -203,6 +208,16 @@ namespace CommunitySeasonGod
             }
 
             graphicalHex.modifierStrength.words.text = hostileShift.GetCost(graphicalHex.hex.location).ToString();
+        }
+
+        public override float hexHabitability(Hex hex, float hab)
+        {
+            foreach (Property pr in hex.location.properties)
+            {
+                if (pr is Pr_Season_IndustriousNewcomers)
+                    return hab + ((float)(pr.charge / pr.map.param.city_popMaxPerHabilitability) + 0.005f);
+            }
+            return base.hexHabitability(hex, hab);
         }
     }
 }
