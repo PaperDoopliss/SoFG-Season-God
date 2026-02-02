@@ -169,6 +169,14 @@ namespace CommunitySeasonGod
             }
         }
 
+        public override void populatingThreats(Overmind overmind, List<MsgEvent> threats)
+        {
+            if (overmind.god is God_Season season)
+            {
+                threats.Add(new MsgEvent($"Season will change in {season.TurnsRemainingInSeason + 1} {(season.TurnsRemainingInSeason == 0 ? "turn." : "turns.")}", 0.5, true, season.ElderTombLocation.hex));
+            }
+        }
+
         public override void onGraphicalHexUpdated(GraphicalHex graphicalHex)
         {
             if (!HasHostileShift)
