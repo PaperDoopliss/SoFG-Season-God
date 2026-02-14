@@ -13,7 +13,8 @@ namespace CommunitySeasonGod
     {
         private SettlementHuman lastSettlement = null;
 
-        public T_RotHerald() { }
+        public T_RotHerald() {
+        }
 
         public override string getName() => "Rot Herald";
 

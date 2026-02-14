@@ -63,8 +63,12 @@
     <Compile Include="P_HostileShift.cs" />
     <Compile Include="P_Stasis.cs" />
     <Compile Include="Sel2_SeasonSelector.cs" />
+    <Compile Include="SubGod_Decay\Pr_GrainBlight.cs" />
+    <Compile Include="SubGod_Decay\Rt_HeraldInTheFall.cs" />
+    <Compile Include="SubGod_Decay\Rt_GrainBlight.cs" />
     <Compile Include="SubGod_Decay\Act_SpreadWilt.cs" />
     <Compile Include="SubGod_Decay\DecayConsts.cs" />
+    <Compile Include="SubGod_Decay\T_EmissaryOfTheWiltingCourt.cs" />
     <Compile Include="SubGod_Decay\T_FallHerald.cs" />
     <Compile Include="SubGod_Decay\T_RotHerald.cs" />
     <Compile Include="SubGod_Decay\Pr_InevitableDecay.cs" />

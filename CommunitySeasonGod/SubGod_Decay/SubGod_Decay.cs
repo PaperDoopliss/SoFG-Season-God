@@ -61,6 +61,14 @@ namespace CommunitySeasonGod
             {
                 if (loc.properties.OfType<Pr_Wilting>().FirstOrDefault() == null) GeneratePassiveWilting(loc);
             }
+
+            foreach (var agent in map.persons.Where(p => p.unit is UAE))
+            {
+                if (agent.unit.rituals.OfType<Rt_GrainBlight>().FirstOrDefault() == null)
+                    agent.unit.rituals.Add(new Rt_GrainBlight(p.unit.location));
+                if (agent.unit.rituals.OfType<Rt_HeraldInTheFall>().FirstOrDefault() == null)
+                    agent.unit.rituals.Add(new Rt_HeraldInTheFall(p.unit.location));
+            }
         }
 
         public static void GeneratePassiveWilting(Location location)
