@@ -55,6 +55,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            new ComLibHooks(ComLibKernel, map);
             EventModifications();
         }
 
@@ -63,6 +64,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            new ComLibHooks(ComLibKernel, map);
             EventModifications();
         }
 
@@ -74,7 +76,6 @@ namespace CommunitySeasonGod
                 {
                     case "CommunityLib":
                         _comLibKernel = kernel as CommunityLib.ModCore;
-                        ComLibKernel.RegisterHooks(new ComLibHooks(map));
                         break;
                 }
             }
@@ -184,7 +185,7 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            if (graphicalHex == null || !(graphicalHex.map.overmind.god is God_Season) || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
+            if (graphicalHex == null || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
             {
                 return;
             }
