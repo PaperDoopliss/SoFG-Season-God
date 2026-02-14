@@ -1,20 +1,20 @@
 {
 	"id": "ComSeasonGod.shift_wind",
 	"modCredit": "",
-	"imgCredit": "A fight in an inn by Jan van der Venne",
-	"image": "default.0_abyssalFaith.jpg",
+	"imgCredit": "Coming Storm by Pierre Georgres Jeanniot",
+	"image": "ComSeasonGod.event_shift_wind.jpg",
 	
 	"type": "INERT",
 	"conditional": "1=1",
 	"probability": 0,
 
 	"name": "The Windy Season",
-	"description": "Placeholder event for when you switch to the Painter of Winds.",
+	"description": "The Painter of Winds sets out to make the world her canvas. The common folk learn to lash their windows shut, as the wind's touch sends unattended objects and people to places they could not possibly have moved naturally. Their suffering brings the Painter nothing but childlike glee as the feeble creatures scramble to adapt to her touch.",
 
 	"choices": [
 		{
-			"name": "She is very mysterious",
-			"description":"The Painter of Winds is now active",
+			"name": "The Painter of Winds",
+			"description":"The Painter of Winds places Wind Currents on the map that generate Fey Presence in a direction of your choice, and can be modified to spread shadow and negative modifiers downwind as she awakens. You can build long chains of Wind Currents to blanket entire regions in shadow, chaos, and destruction.",
 			"outcomes": [
 				{
 					"weight": 0.8,

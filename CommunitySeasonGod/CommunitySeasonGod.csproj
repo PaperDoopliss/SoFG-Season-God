@@ -60,6 +60,12 @@
     <Compile Include="ComLibHooks.cs" />
     <Compile Include="God_Season.cs" />
     <Compile Include="Pr_FeyPresence.cs" />
+    <Compile Include="SubGod_Harvest\SubGod_Harvest.cs" />
+    <Compile Include="SubGod_Harvest\T_JoyfulPresence.cs" />
+    <Compile Include="SubGod_Harvest\T_MartyrOfRevelry.cs" />
+    <Compile Include="SubGod_Harvest\T_VeilPiercer.cs" />
+    <Compile Include="SubGod_Wind\P_Season_EmpoweredBrushstrokes.cs" />
+    <Compile Include="SubGod_Wind\Pr_Season_IndustriousNewcomers.cs" />
     <Compile Include="P_HostileShift.cs" />
     <Compile Include="P_Stasis.cs" />
     <Compile Include="Sel2_SeasonSelector.cs" />
@@ -84,8 +90,18 @@
     <Compile Include="SubGod_Decay\P_Season_AutumnsCaress.cs" />
     <Compile Include="SubGod_Decay\SubGod_Decay.cs" />
     <Compile Include="SubGod_Hunt\P_Season_HuntBonus.cs" />
+    <Compile Include="SubGod_Wind\Pr_Season_WindCurrent.cs" />
+    <Compile Include="SubGod_Wind\P_Season_HurricaneOfCreation.cs" />
+    <Compile Include="SubGod_Wind\P_Season_PlagueWind.cs" />
+    <Compile Include="SubGod_Wind\P_Season_PrimordialTempest.cs" />
+    <Compile Include="SubGod_Wind\P_Season_ArtisticFlourish.cs" />
+    <Compile Include="SubGod_Wind\P_Season_SmotheringGusts.cs" />
+    <Compile Include="SubGod_Wind\P_Season_TumultuousGale.cs" />
+    <Compile Include="SubGod_Wind\P_Season_Typhoon.cs" />
+    <Compile Include="SubGod_Wind\P_Season_VoicesOnTheWind.cs" />
     <Compile Include="SubGod_Wind\P_Season_WindCurrent.cs" />
     <Compile Include="SubGod_Hunt\P_Season_HuntCamouflage.cs" />
+    <Compile Include="SubGod_Wind\Sel2_Season_WindCurrent.cs" />
     <Compile Include="SubGod_Wind\SubGod_Wind.cs" />
     <Compile Include="SubGod_Hunt\SubGod_Hunt.cs" />
     <Compile Include="Kernel_Season.cs" />
@@ -93,6 +109,9 @@
     <Compile Include="P_Season_LimitedCharges.cs" />
     <Compile Include="P_Season.cs" />
     <Compile Include="SubGod.cs" />
+    <Compile Include="SubGod_Wind\T_Season_BolsteredCurrents.cs" />
+    <Compile Include="SubGod_Wind\T_Season_ExitStrategy.cs" />
+    <Compile Include="SubGod_Wind\T_Season_WhispersOnTheWind.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -55,7 +55,7 @@ namespace CommunitySeasonGod
         [SerializeField]
         protected Sprite _supplicantSprite;
         [SerializeField]
-        protected List<Trait> _supplicantStartningTraits;
+        protected List<Trait> _supplicantStartingTraits;
 
         [SerializeField]
         protected int _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
@@ -87,6 +87,11 @@ namespace CommunitySeasonGod
             if (Kernel_Season.opt_windEnabled > 0)
             {
                 SubGods.Add(new SubGod_Wind(this, map));
+            }
+
+            if (Kernel_Season.opt_harvestEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Harvest(this, map));
             }
 
             _genericPowers.Add(new P_Stasis(map));
@@ -137,6 +142,15 @@ namespace CommunitySeasonGod
             _turnsRemainingInSeason = Kernel_Season.opt_seasonLength;
             map.overmind.availableEnthrallments = 2;
 
+            Unit supplicant = ElderTombLocation.units.FirstOrDefault(u => u is UAE_Supplicant);
+            if (supplicant != null)
+            {
+                ElderTombLocation.units.Remove(supplicant);
+                map.units.Remove(supplicant);
+                map.overmind.agents.Remove(supplicant);
+                GraphicalMap.selectedUnit = null;
+            }
+
             _nextShiftIsNatural = true;
             CreateDraft(Array.Empty<SubGod>());
             FireSeasonChangeEvent();
@@ -158,15 +172,14 @@ namespace CommunitySeasonGod
             if (ActiveSubGod != null)
             {
                 _supplicantSprite = ActiveSubGod.GetSupplicantSprite();
-                return;
             }
-
-            _supplicantSprite = map.world.textureStore.agent_supplicantSnake;
+            else
+                _supplicantSprite = map.world.textureStore.agent_supplicantSnake;
         }
 
         public override bool hasSupplicantStartingTraits()
         {
-            if (_supplicantStartningTraits != null && _supplicantStartningTraits.Count > 0)
+            if (_supplicantStartingTraits != null && _supplicantStartingTraits.Count > 0)
             {
                 return true;
             }
@@ -181,23 +194,23 @@ namespace CommunitySeasonGod
 
         public override List<Trait> getSupplicantStartingTraits()
         {
-            if (_supplicantStartningTraits == null || _supplicantStartningTraits.Count == 0)
+            if (_supplicantStartingTraits == null || _supplicantStartingTraits.Count == 0)
             {
                 FetchSupplcantStartingTraits();
+                
             }
 
-            return _supplicantStartningTraits;
+            return _supplicantStartingTraits;
         }
 
         private void FetchSupplcantStartingTraits()
         {
             if (ActiveSubGod != null && ActiveSubGod.HasSupplicantStartingTraits())
             {
-                _supplicantStartningTraits = ActiveSubGod.GetSupplicantStartingTraits();
-                return;
+                _supplicantStartingTraits = ActiveSubGod.GetSupplicantStartingTraits();
             }
-
-            _supplicantStartningTraits = new List<Trait>();
+            else
+                _supplicantStartingTraits = new List<Trait>();
         }
 
         public virtual bool CheckRespawnSupplicant()

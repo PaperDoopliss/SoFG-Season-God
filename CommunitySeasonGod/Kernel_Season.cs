@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-
 namespace CommunitySeasonGod
 {
 
@@ -27,6 +26,7 @@ namespace CommunitySeasonGod
         public static int opt_draftSizeSelection = 3;
         public static int opt_windEnabled = 1;
         public static int opt_huntEnabled = 1;
+        public static int opt_harvestEnabled = 1;
         public static int opt_decayEnabled = 1;
 
         public bool HasHostileShift = false;
@@ -39,6 +39,8 @@ namespace CommunitySeasonGod
                     return opt_huntEnabled;
                 case SubGod_Wind _:
                     return opt_windEnabled;
+                case SubGod_Harvest _:
+                    return opt_harvestEnabled;
                 case SubGod_Decay _:
                     return opt_decayEnabled;
                 default:
@@ -56,6 +58,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            new ComLibHooks(ComLibKernel, map);
             EventModifications();
         }
 
@@ -64,6 +67,7 @@ namespace CommunitySeasonGod
             _kernel = this;
 
             GetModKernels(map);
+            new ComLibHooks(ComLibKernel, map);
             EventModifications();
         }
 
@@ -75,7 +79,6 @@ namespace CommunitySeasonGod
                 {
                     case "CommunityLib":
                         _comLibKernel = kernel as CommunityLib.ModCore;
-                        ComLibKernel.RegisterHooks(new ComLibHooks(map));
                         break;
                 }
             }
@@ -106,14 +109,17 @@ namespace CommunitySeasonGod
                 case "Selection Draft Size":
                     opt_draftSizeSelection = value;
                     break;
-                case "Master of the Hunt Enabled":
+                case "Enable: Master of the Hunt":
                     opt_huntEnabled = value;
                     break;
-                case "Painter of Winds Enabled":
+                case "Enable: Painter of Winds":
                     opt_windEnabled = value;
                     break;
                 case "Lady of Wilted Leaves Enabled":
                     opt_decayEnabled = value;
+                    break;
+                case "Enable: Uncle of the Harvest":
+                    opt_harvestEnabled = value;
                     break;
             }
         }
@@ -170,6 +176,14 @@ namespace CommunitySeasonGod
             }
         }
 
+        public override void populatingThreats(Overmind overmind, List<MsgEvent> threats)
+        {
+            if (overmind.god is God_Season season)
+            {
+                threats.Add(new MsgEvent($"Season will change in {season.TurnsRemainingInSeason + 1} {(season.TurnsRemainingInSeason == 0 ? "turn." : "turns.")}", 0.5, true, season.ElderTombLocation.hex));
+            }
+        }
+
         public override void onGraphicalHexUpdated(GraphicalHex graphicalHex)
         {
             if (!HasHostileShift)
@@ -177,7 +191,7 @@ namespace CommunitySeasonGod
                 return;
             }
 
-            if (graphicalHex == null || !(graphicalHex.map.overmind.god is God_Season) || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
+            if (graphicalHex == null || !(graphicalHex.map.world.selector is Sel_CastPower castSelector) || !(castSelector.power is P_HostileShift hostileShift))
             {
                 return;
             }
@@ -209,6 +223,16 @@ namespace CommunitySeasonGod
             }
 
             graphicalHex.modifierStrength.words.text = hostileShift.GetCost(graphicalHex.hex.location).ToString();
+        }
+
+        public override float hexHabitability(Hex hex, float hab)
+        {
+            foreach (Property pr in hex.location.properties)
+            {
+                if (pr is Pr_Season_IndustriousNewcomers)
+                    return hab + ((float)(pr.charge / pr.map.param.city_popMaxPerHabilitability) + 0.005f);
+            }
+            return base.hexHabitability(hex, hab);
         }
     }
 }

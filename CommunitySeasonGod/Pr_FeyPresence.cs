@@ -28,12 +28,12 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "This area has come to be a favoured stomping-ground of the fey folk. Their songs and laughter blend seemlessly into the winding, restless wind. Their movements flicker at the periphery of vision. Their arcane influence seeps into the land, the water, the trees. It is as alian and monstrous as it is wondrous and captivating.";
+            return "This area has come to be a favoured stomping ground of the fey. Fey Presence can be spent to fuel your powers, and cannot rise above 300%.";
         }
 
         public override Sprite getSprite(World world)
         {
-            return base.getSprite(world);
+            return world.iconStore.nurture;
         }
 
         public override bool hasBackgroundHexView()
@@ -41,15 +41,20 @@ namespace CommunitySeasonGod
             return true;
         }
 
-        public override void turnTick()
+        public override float getHexBackgroundViewOpacity()
         {
-            if (!(this.map.overmind.god is God_Season)) return;
-            (this.map.overmind.god as God_Season).ActiveSubGod.FeyPresenceTurnTick(this);
+            return Mathf.Min(1f, (float)charge / 100f);
         }
 
         public override Sprite getHexBackgroundSprite()
         {
             return EventManager.getImg("ComSeasonGod.Icon_FeyPresence_Background.png");
+        }
+
+        public override void turnTick()
+        {
+            if (charge > 300)
+                charge = 300;
         }
     }
 }
