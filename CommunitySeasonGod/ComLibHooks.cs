@@ -14,7 +14,7 @@ namespace CommunitySeasonGod
         {
             HooksDelegateRegistry registry = comLibKernel.HookRegistry;
             registry.RegisterHook_onCalculateAgentsUsed(onCalculateAgentsUsed);
-            //registry.RegisterHook_appliesGraphicalHexUpdate(Kernel_Season.Instance, appliesGraphicalHexUpdate); / Enable this line when the Community Library version 2.10.00 goes live on the 28th Feb 2026
+            registry.RegisterHook_appliesGraphicalHexUpdate(Kernel_Season.Instance, appliesGraphicalHexUpdate);
         }
 
         public bool appliesGraphicalHexUpdate(Map map)
