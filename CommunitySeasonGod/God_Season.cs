@@ -652,7 +652,7 @@ namespace CommunitySeasonGod
 
             _activeSubGod = newSubGod;
 
-            newSubGod.OnActivate(map, ActiveSubGod, _lastShiftWasNatural);
+            newSubGod.OnActivate(map, lastSubGod, _lastShiftWasNatural);
 
             foreach (SubGod subGod in SubGods)
             {
