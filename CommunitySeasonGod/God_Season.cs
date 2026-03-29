@@ -79,11 +79,6 @@ namespace CommunitySeasonGod
         {
             base.setup(map);
 
-            if (Kernel_Season.opt_huntEnabled > 0)
-            {
-                SubGods.Add(new SubGod_Hunt(this, map));
-            }
-
             if (Kernel_Season.opt_windEnabled > 0)
             {
                 SubGods.Add(new SubGod_Wind(this, map));
@@ -92,6 +87,11 @@ namespace CommunitySeasonGod
             if (Kernel_Season.opt_harvestEnabled > 0)
             {
                 SubGods.Add(new SubGod_Harvest(this, map));
+            }
+
+            if (Kernel_Season.opt_feastEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Feast(this, map));
             }
 
             _genericPowers.Add(new P_Stasis(map));
@@ -117,13 +117,13 @@ namespace CommunitySeasonGod
 
         public override string getDescMechanics()
         {
-            return "This Elder God is made up of different Fey Nobles who each take turns ruling the Court. When the season shifts, their playstyle changes radically - each noble has their own power set and playstyle, and victory will require shifting smoothly from one to the other.";
+            return "This Elder God is made up of different Fey Nobles who each take turns ruling the Court. When the season shifts, their playstyle changes radically - each Noble has their own power set and playstyle, and victory will require shifting smoothly from one to the other.";
         }
 
         public override string getDetailedMechanics()
         {
 
-            return "This Elder God plays by putting decisive bursts of resources toward a specific goal, then pivoting wildly toward different plans as they enjoy the last season's successes.\n\n<b>The Court</b>\nThe game begins with a random Noble in play with their own list of powers. Every " + Kernel_Season.opt_seasonLength + " turns, control of the Court will shift to a different random Noble, removing the previous Noble's power list and replacing it with a new one. This changing of the seasons also grants you a bonus based on the new ruler, allowing them to get off the ground quickly. You can use the Seize the Throne power to switch before time runs out, which also allows you to choose the next Noble to control, though the new Noble will not benefit from their normal Season Changes effect. The change can also be delayed using the Cling to the Throne power, but not indefinitely.\n\n<b>Fey Presence</b>\nThe Court's more impactful powers are fueled by the Fey Presence modifier. Each Noble has their own ways of generating Fey Presence in line with their playstyle, but the resource itself remains across seasons and can be used by all Nobles equally. If you have no plans left for your current Noble, consider spreading additional Fey Presence until the seasons change again.\n\n<b>The Supplicant</b>\nThe Supplicant does not occupy an agent slot, and takes different forms for different Nobles. Supplicants can outlive their Noble's season, but if the Supplicant is dead when the Nobles change rulership that Noble's Supplicant will emerge to serve you.";
+            return "This Elder God plays by putting decisive bursts of resources toward a specific goal, then pivoting wildly toward different plans as they enjoy the last season's successes.\n\n<b>The Court</b>\nThe game begins with one of three random Nobles in play with their own list of powers. Every " + Kernel_Season.opt_seasonLength + " turns, control of the Court will shift to a different selection of three Nobles, removing the previous Noble's power list and replacing it with a new one. This changing of the seasons also grants you a bonus based on the new ruler, allowing them to get off the ground quickly. You can use the Hostile Shift power to switch before time runs out, which also allows you to choose the next Noble to control, though the new Noble will not benefit from their normal Season Changes effect. The change can also be delayed using the Stasis power, but not indefinitely.\n\n<b>Fey Presence</b>\nThe Court's more impactful powers are fueled by the Fey Presence modifier. Each Noble has their own ways of generating Fey Presence in line with their playstyle, but the resource itself remains across seasons and can be used by all Nobles equally. If you have no plans left for your current Noble, consider spreading additional Fey Presence until the seasons change again.\n\n<b>The Supplicant</b>\nThe Supplicant does not occupy an agent slot, and takes different forms for different Nobles. Supplicants can outlive their Noble's season, but if the Supplicant is dead when the Nobles change rulership that Noble's Supplicant will emerge to serve you.";
         }
 
         public override void onStart(Map map)
@@ -271,7 +271,7 @@ namespace CommunitySeasonGod
             {
                 return EventManager.getImg(ActiveSubGod.GetSpritePath());
             }
-            return world.textureStore.god_snake_portrait;
+            return EventManager.getImg("ComSeasonGod.portrait_default.png");
         }
 
         public override Sprite getGodBackground(World world)
@@ -300,8 +300,8 @@ namespace CommunitySeasonGod
 
         public override string getVictoryMessage(int victoryMode)
         {
-            if (ActiveSubGod != null && ActiveSubGod.GetVictoryMessage() != "")
-                return ActiveSubGod.GetVictoryMessage();
+            if (ActiveSubGod != null && ActiveSubGod.GetVictoryMessage(victoryMode) != "")
+                return ActiveSubGod.GetVictoryMessage(victoryMode);
 
             switch (victoryMode)
             {
@@ -351,6 +351,7 @@ namespace CommunitySeasonGod
             }
 
             return true;
+
         }
 
         public void FireSeasonChangeEvent()
@@ -712,6 +713,32 @@ namespace CommunitySeasonGod
 
                 subGod.TurnTick_Inactive(map);
             }
+        }
+
+        public bool removeSubGod(Type toRemove)
+        {
+            if (_subGods.Count < 2)
+                return false;
+
+            for (int i = 0; i < _subGodDeck.Count; i++)
+            {
+                if (_subGodDeck[i].GetType() == toRemove)
+                {
+                    _subGodDeck.RemoveAt(i);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < _subGods.Count; i++)
+            {
+                if (_subGods[i].GetType() == toRemove)
+                {
+                    _subGods.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

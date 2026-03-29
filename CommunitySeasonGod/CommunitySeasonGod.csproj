@@ -32,12 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\References\2_0\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CommunityLib">
-      <HintPath>..\References\2_0\CommunityLib.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="CommunityLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Other People's Mods\CommunityLib 2.0\CommunityLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,11 +47,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\References\2_0\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\References\2_0\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -60,6 +59,45 @@
     <Compile Include="ComLibHooks.cs" />
     <Compile Include="God_Season.cs" />
     <Compile Include="Pr_FeyPresence.cs" />
+    <Compile Include="SubGod_Feast\Act_Season_AnswerSummon.cs" />
+    <Compile Include="SubGod_Feast\Act_Season_GrandFeast.cs" />
+    <Compile Include="SubGod_Feast\Act_Season_Tournament.cs" />
+    <Compile Include="SubGod_Feast\Ch_Season_SeekArtifactGood.cs" />
+    <Compile Include="SubGod_Feast\Ch_Season_SeekArtifactEvil.cs" />
+    <Compile Include="SubGod_Feast\I_Season_CourtDuelingBlade.cs" />
+    <Compile Include="SubGod_Feast\I_Season_FeyishEternalGoblet.cs" />
+    <Compile Include="SubGod_Feast\I_Season_ServantsSpectacles.cs" />
+    <Compile Include="SubGod_Feast\M_Season_FeyKnight.cs" />
+    <Compile Include="SubGod_Feast\Pr_Season_HiddenArtifact.cs" />
+    <Compile Include="SubGod_Feast\Pr_Season_SpoilsOfWar.cs" />
+    <Compile Include="SubGod_Feast\P_Season_EmboldenBlood.cs" />
+    <Compile Include="SubGod_Feast\P_Season_EnnobleSavage.cs" />
+    <Compile Include="SubGod_Feast\P_Season_PaleKnightsChevauchee.cs" />
+    <Compile Include="SubGod_Feast\P_Season_PaleKnightsRide.cs" />
+    <Compile Include="SubGod_Feast\P_Season_PaleKnightsSummon.cs" />
+    <Compile Include="SubGod_Feast\P_Season_PrepareSpoils.cs" />
+    <Compile Include="SubGod_Feast\P_Season_SummonArtifact.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_AnswerSummon.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_BeckonKnights.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_BestowFeyblood.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_GrandFeast.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_GreatOrcRaiding.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_PurgeFeyPresence.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_RollInSacredMud.cs" />
+    <Compile Include="SubGod_Feast\Rt_Season_SpreadFeyPresence.cs" />
+    <Compile Include="SubGod_Feast\SubGod_Feast.cs" />
+    <Compile Include="SubGod_Feast\Task_Season_SackLocation.cs" />
+    <Compile Include="SubGod_Feast\T_Season_Feyblood.cs" />
+    <Compile Include="SubGod_Feast\T_Season_FeyishReliquary.cs" />
+    <Compile Include="SubGod_Feast\T_Season_GreatOrc.cs" />
+    <Compile Include="SubGod_Feast\T_Season_HonoredHost.cs" />
+    <Compile Include="SubGod_Feast\T_Season_KnightlyChallenger.cs" />
+    <Compile Include="SubGod_Feast\T_Season_LordOfTheFeast.cs" />
+    <Compile Include="SubGod_Feast\T_Season_PaleKnightsTouch.cs" />
+    <Compile Include="SubGod_Feast\UAEN_Season_GreatOrc.cs" />
+    <Compile Include="SubGod_Feast\UAE_Season_PaleKnight.cs" />
+    <Compile Include="SubGod_Feast\UM_Season_FeyKnights.cs" />
+    <Compile Include="SubGod_Feast\UM_Season_GolemArmy.cs" />
     <Compile Include="SubGod_Harvest\SubGod_Harvest.cs" />
     <Compile Include="SubGod_Harvest\T_JoyfulPresence.cs" />
     <Compile Include="SubGod_Harvest\T_MartyrOfRevelry.cs" />
@@ -69,8 +107,8 @@
     <Compile Include="P_HostileShift.cs" />
     <Compile Include="P_Stasis.cs" />
     <Compile Include="Sel2_SeasonSelector.cs" />
-    <Compile Include="SubGod_Hunt\P_Season_HuntBonus.cs" />
     <Compile Include="SubGod_Wind\Pr_Season_WindCurrent.cs" />
+    <Compile Include="SubGod_Wind\P_Season_GaleForce.cs" />
     <Compile Include="SubGod_Wind\P_Season_HurricaneOfCreation.cs" />
     <Compile Include="SubGod_Wind\P_Season_PlagueWind.cs" />
     <Compile Include="SubGod_Wind\P_Season_PrimordialTempest.cs" />
@@ -80,10 +118,8 @@
     <Compile Include="SubGod_Wind\P_Season_Typhoon.cs" />
     <Compile Include="SubGod_Wind\P_Season_VoicesOnTheWind.cs" />
     <Compile Include="SubGod_Wind\P_Season_WindCurrent.cs" />
-    <Compile Include="SubGod_Hunt\P_Season_HuntCamouflage.cs" />
     <Compile Include="SubGod_Wind\Sel2_Season_WindCurrent.cs" />
     <Compile Include="SubGod_Wind\SubGod_Wind.cs" />
-    <Compile Include="SubGod_Hunt\SubGod_Hunt.cs" />
     <Compile Include="Kernel_Season.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="P_Season_LimitedCharges.cs" />

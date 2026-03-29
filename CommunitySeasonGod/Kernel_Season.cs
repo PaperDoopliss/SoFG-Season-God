@@ -25,8 +25,8 @@ namespace CommunitySeasonGod
         public static int opt_draftSizeNatural = 3;
         public static int opt_draftSizeSelection = 3;
         public static int opt_windEnabled = 1;
-        public static int opt_huntEnabled = 1;
         public static int opt_harvestEnabled = 1;
+        public static int opt_feastEnabled = 1;
 
         public bool HasHostileShift = false;
 
@@ -34,12 +34,12 @@ namespace CommunitySeasonGod
         {
             switch(subGod)
             {
-                case SubGod_Hunt _:
-                    return opt_huntEnabled;
                 case SubGod_Wind _:
                     return opt_windEnabled;
                 case SubGod_Harvest _:
                     return opt_harvestEnabled;
+                case SubGod_Feast _:
+                    return opt_feastEnabled;
                 default:
                     return 0;
             }
@@ -53,6 +53,7 @@ namespace CommunitySeasonGod
         public override void beforeMapGen(Map map)
         {
             _kernel = this;
+            UAEN_Season_GreatOrc.populateGreatOrc();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);
@@ -62,6 +63,7 @@ namespace CommunitySeasonGod
         public override void afterLoading(Map map)
         {
             _kernel = this;
+            UAEN_Season_GreatOrc.populateGreatOrc();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);
@@ -106,14 +108,14 @@ namespace CommunitySeasonGod
                 case "Selection Draft Size":
                     opt_draftSizeSelection = value;
                     break;
-                case "Enable: Master of the Hunt":
-                    opt_huntEnabled = value;
-                    break;
                 case "Enable: Painter of Winds":
                     opt_windEnabled = value;
                     break;
                 case "Enable: Uncle of the Harvest":
                     opt_harvestEnabled = value;
+                    break;
+                case "Enable: Lord of the Feast":
+                    opt_feastEnabled = value;
                     break;
             }
         }
@@ -124,6 +126,9 @@ namespace CommunitySeasonGod
             {
                 case "Deck of Seasons":
                     opt_deckMode=value;
+                    break;
+                case "Test Mode":
+                    opt_deckMode = value;
                     break;
             }
         }
@@ -170,11 +175,93 @@ namespace CommunitySeasonGod
             }
         }
 
+        public override double sovereignAI(Map map, AN actionNational, Person ruler, List<ReasonMsg> reasons, double initialUtility)
+        {
+            double result = base.sovereignAI(map, actionNational, ruler, reasons, initialUtility);
+
+            if (actionNational is AN_FormAlliance)
+            {
+                if (ruler != null)
+                {
+                    foreach (Trait t in ruler.traits)
+                    {
+                        if (t is T_Season_Feyblood)
+                        {
+                            reasons?.Add(new ReasonMsg("Feyblood Don't Ally", -100));
+                            result -= 100;
+                        }
+                    }
+                }
+            }
+            else //Merging a bunch of these together to represent the various war declarations
+            {
+
+                Society targetSoc = null;
+
+                if (actionNational is AN_WarCrusade crusade)
+                    targetSoc = crusade.target as Society;
+                else if (actionNational is AN_DeclareWar war)
+                    targetSoc = war.target as Society;
+                else if (actionNational is AN_WarOnThreat threat)
+                    targetSoc = threat.target as Society;
+
+                if (targetSoc != null)
+                {
+
+                    if (ruler.society.isAlliance)
+                    {
+
+                        if (targetSoc.getSovreign() != null)
+                        {
+                            foreach (Trait t in targetSoc.getSovreign().traits)
+                            {
+                                if (t is T_Season_Feyblood)
+                                {
+                                    reasons?.Add(new ReasonMsg("Purge the Feyblood", 50));
+                                    result += 50;
+                                }
+                            }
+                        }
+
+                    }
+                    foreach (Trait t in ruler.traits)
+                    {
+                        if (t is T_Season_Feyblood)
+                        {
+
+                            double spoils = 0;
+
+                            foreach (Location l in targetSoc.lastTurnLocs)
+                            {
+                                foreach (Property pr in l.properties)
+                                {
+                                    if (pr is Pr_Season_SpoilsOfWar)
+                                        spoils += pr.charge;
+                                }
+                            }
+
+
+                            if (spoils > 0)
+                            {
+                                reasons?.Add(new ReasonMsg("Spoils of War", spoils * 1.5));
+                                result += spoils * 1.5;
+                            }
+
+
+                        }
+                    }
+
+                }
+
+            }
+            return result;
+        }
+
         public override void populatingThreats(Overmind overmind, List<MsgEvent> threats)
         {
             if (overmind.god is God_Season season)
             {
-                threats.Add(new MsgEvent($"Season will change in {season.TurnsRemainingInSeason + 1} {(season.TurnsRemainingInSeason == 0 ? "turn." : "turns.")}", 0.5, true, season.ElderTombLocation.hex));
+                threats.Add(new MsgEvent($"Season will change in {season.TurnsRemainingInSeason} {(season.TurnsRemainingInSeason == 0 ? "turn." : "turns.")}", 0.5, true, season.ElderTombLocation.hex));
             }
         }
 

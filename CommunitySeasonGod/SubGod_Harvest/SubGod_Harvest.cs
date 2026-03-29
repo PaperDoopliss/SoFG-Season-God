@@ -16,8 +16,6 @@ namespace CommunitySeasonGod
         {
             Powers.Add(new P_Season_WindCurrent(map));
             PowerLevelReqs.Add(0);
-            BonusPowers.Add(new P_Season_HuntBonus(map));
-            BonusPowerLevelReqs.Add(0);
         }
         public override string GetName()
         {

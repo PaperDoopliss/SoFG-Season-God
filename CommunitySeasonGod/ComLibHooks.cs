@@ -24,15 +24,22 @@ namespace CommunitySeasonGod
 
         public int onCalculateAgentsUsed(List<Unit> playerControlledUnits, int recruitmentCapUsed)
         {
-            if (!(World.staticMap.overmind.god is God_Season))
+            if (World.staticMap.overmind.god is God_Season)
             {
-                return recruitmentCapUsed;
+                int unitMod = 0;
+
+                if (playerControlledUnits.Any(u => u is UAE_Supplicant))
+                {
+                    unitMod--;
+                }
+                if (playerControlledUnits.Any(u => u is UAE_Season_PaleKnight))
+                {
+                    unitMod--;
+                }
+
+                return recruitmentCapUsed + unitMod;
             }
 
-            if (playerControlledUnits.Any(u => u is UAE_Supplicant))
-            {
-                return recruitmentCapUsed  - 1;
-            }
 
             return recruitmentCapUsed;
         }

@@ -69,7 +69,7 @@ namespace CommunitySeasonGod
         public virtual string GetAwakeningMessage() { return ""; }
 
         //If blank, a generic contextual message displays if this SubGod is active upon victory
-        public virtual string GetVictoryMessage() { return ""; }
+        public virtual string GetVictoryMessage(int victoryMode) { return ""; }
 
         #region Supplkicant
         public virtual Sprite GetSupplicantSprite()

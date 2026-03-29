@@ -30,16 +30,16 @@
 			"defaultValue":3
 		},
 		{
-			"name":"Enable: Master of the Hunt",
-			"description":"A Fey Noble who empowers heroes and agents to do great and terrible deeds. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
+			"name":"Enable: Painter of Winds",
+			"description":"A Fey Noble who spreads darkness and chaos from place to place on the currents of wind. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
 			"isInteger":"true",
 			"minValue":0,
 			"maxValue":3,
 			"defaultValue":1
 		},
 		{
-			"name":"Enable: Painter of Winds",
-			"description":"A Fey Noble who spreads darkness and chaos from place to place on the currents of wind. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
+			"name":"Enable: Lord of the Feast",
+			"description":"A Fey Noble who bolsters humanity, makes them more aggressive, and manipulates them into ruin. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
 			"isInteger":"true",
 			"minValue":0,
 			"maxValue":3,

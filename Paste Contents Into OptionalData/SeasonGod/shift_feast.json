@@ -1,0 +1,27 @@
+{
+	"id": "ComSeasonGod.shift_feast",
+	"modCredit": "",
+	"imgCredit": "A Roman Feast by Roberto Bompiani",
+	"image": "ComSeasonGod.event_shift_feast.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "The Feasting Season",
+	"description": "The future shortens and shrinks as the Lord of the Feast stirs. Storehouses are cracked open, fields lie fallow, and soldiers help themselves to whatever is in reach. It is a time of indulgence and war.",
+
+	"choices": [
+		{
+			"name": "The Lord of the Feast",
+			"description":"The Lord of the Feast imbues target heroes and rulers with Feyblood, which empowers them and makes them more aggressive and gold-hungry. They can then be manipulated through powers to bring ruin to their neighbours.",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}

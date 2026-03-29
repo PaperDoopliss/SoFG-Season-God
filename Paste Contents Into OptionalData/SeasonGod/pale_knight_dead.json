@@ -1,0 +1,28 @@
+{
+	"id": "ComSeasonGod.pale_knight_dead",
+	"modCredit": "",
+	"imgCredit": "Seven Fat Cows and Seven Lean Cows, artist unknown",
+	"image": "ComSeasonGod.event_pale_knight_dead.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "The Pale Knight is Dead",
+	"description": "As the Pale Knight falls, his true identity is revealed, and the Lord of the Feast's bizarre fixation on humanity is exposed. The loss of an embodiment is not enough to destroy a Noble, but the shame will linger for millenia, and his season will fade from the world for a long time indeed.",
+
+	"choices": [
+		{
+			"name": "Choose the next Season",
+			"description":"Presents a choice of seasons from which to choose. Canceling will give a random result.",
+			"outcomes": [
+				{
+					"weight": 1.0,
+					"effects": [
+						{"command": "CHOOSE_SEASON_SUBGOD", "argument": "1"}
+					]
+				}
+			]
+		}
+	]
+}
