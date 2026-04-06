@@ -11,7 +11,7 @@ namespace CommunitySeasonGod
     public class UM_Season_FeyKnights : UM
     {
 
-        public static int startingHP = 1500;
+        public static int startingHP = 500;
         public static double presenceTargetCutoff = 100;
         public Location target = null;
 

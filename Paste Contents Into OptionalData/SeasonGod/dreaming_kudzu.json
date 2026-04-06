@@ -1,0 +1,27 @@
+{
+	"id": "ComSeasonGod.dreaming_kudzu",
+	"modCredit": "",
+	"imgCredit": "Carl Blechen, The Interior of the Palm House on the Pfaueninsel Near Potsdam, 1834",
+	"image": "ComSeasonGod.event_dreaming_kudzu.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "Dreaming Kudzu",
+	"description": "The Dreaming Kudzu has fully engulfed %LOCATION_NAME. It smothers every window and crowds every road, seeming to audibly whisper to the inhabitants. By the time it is torn down from one building it has claimed two more. Dreams become alien and unforgettable, and during waking hours one catches glimpses of another world through gaps in the vines.",
+
+	"choices": [
+		{
+			"name": "The vines smother all",
+			"description": "Madness and Fey Presence increase by 150%",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}

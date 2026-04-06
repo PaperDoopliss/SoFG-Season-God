@@ -44,6 +44,14 @@
 			"minValue":0,
 			"maxValue":3,
 			"defaultValue":1
+		},
+		{
+			"name":"Enable: Niece of Blooming Fields",
+			"description":"A Fey Noble who makes humanity more prosperous through abundant life, drowning humanity in distractions and making them easier to infiltrate. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
+			"isInteger":"true",
+			"minValue":0,
+			"maxValue":3,
+			"defaultValue":1
 		}
 	]
 }

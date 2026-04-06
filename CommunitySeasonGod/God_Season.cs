@@ -94,6 +94,11 @@ namespace CommunitySeasonGod
                 SubGods.Add(new SubGod_Feast(this, map));
             }
 
+            if (Kernel_Season.opt_bloomEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Bloom(this, map));
+            }
+
             _genericPowers.Add(new P_Stasis(map));
             _genericPowerLevelReqs.Add(2);
             _genericPowers.Add(new P_HostileShift(map));
@@ -739,6 +744,11 @@ namespace CommunitySeasonGod
             }
 
             return false;
+        }
+
+        public void forceNextShiftNatural(bool toForce)
+        {
+            _nextShiftIsNatural = toForce;
         }
     }
 }

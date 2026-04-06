@@ -1,0 +1,27 @@
+{
+	"id": "ComSeasonGod.shift_bloom",
+	"modCredit": "",
+	"imgCredit": "View of Vétheuil (1880) by Claude Monet",
+	"image": "ComSeasonGod.event_shift_bloom.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "The Growing Season",
+	"description": "The Niece of Blooming Fields turns her innocent gaze on the world as the land is awash in life. Flowers bloom and crops flourish as she showers humanity in her gifts. On the surface it is a prosperous time, and it is all too easy to ignore the strange beings proliferating away from human eyes.",
+
+	"choices": [
+		{
+			"name": "The Niece of Blooming Fields",
+			"description":"The Niece of Blooming Fields spreads gifts to the lands under her favour, making them stronger and easier to infiltrate and eventually turn into a Dark Empire. The lands she doesn't favour are smothered in rampant growth that paralyzes them and drives them mad.",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}

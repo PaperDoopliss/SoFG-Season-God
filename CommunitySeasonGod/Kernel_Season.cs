@@ -3,6 +3,7 @@ using Assets.Code.Modding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,6 +20,9 @@ namespace CommunitySeasonGod
         private static CommunityLib.ModCore _comLibKernel;
         public static CommunityLib.ModCore ComLibKernel => _comLibKernel;
 
+        private static Assembly _livingWilds;
+        public static Assembly livingWilds => _livingWilds;
+
         public static bool opt_deckMode = true;
 
         public static int opt_seasonLength = 80;
@@ -27,8 +31,10 @@ namespace CommunitySeasonGod
         public static int opt_windEnabled = 1;
         public static int opt_harvestEnabled = 1;
         public static int opt_feastEnabled = 1;
+        public static int opt_bloomEnabled = 1;
 
         public bool HasHostileShift = false;
+
 
         public static int GetSubGodEnabledState(SubGod subGod)
         {
@@ -40,6 +46,8 @@ namespace CommunitySeasonGod
                     return opt_harvestEnabled;
                 case SubGod_Feast _:
                     return opt_feastEnabled;
+                case SubGod_Bloom _:
+                    return opt_bloomEnabled;
                 default:
                     return 0;
             }
@@ -79,6 +87,9 @@ namespace CommunitySeasonGod
                     case "CommunityLib":
                         _comLibKernel = kernel as CommunityLib.ModCore;
                         break;
+                    case "LivingWilds":
+                        _livingWilds = kernel.GetType().Assembly;
+                        break;
                 }
             }
         }
@@ -116,6 +127,9 @@ namespace CommunitySeasonGod
                     break;
                 case "Enable: Lord of the Feast":
                     opt_feastEnabled = value;
+                    break;
+                case "Enable: Niece of Blooming Fields":
+                    opt_bloomEnabled = value;
                     break;
             }
         }
@@ -308,12 +322,57 @@ namespace CommunitySeasonGod
 
         public override float hexHabitability(Hex hex, float hab)
         {
+
+            float habMod = 0;
+
             foreach (Property pr in hex.location.properties)
             {
                 if (pr is Pr_Season_IndustriousNewcomers)
-                    return hab + ((float)(pr.charge / pr.map.param.city_popMaxPerHabilitability) + 0.005f);
+                    habMod += ((float)(pr.charge / pr.map.param.city_popMaxPerHabilitability) + 0.005f);
+                else if (pr is Pr_Season_BloomingFields)
+                    habMod += Pr_Season_BloomingFields.habitabilityIncrease;
+                else if (pr is Pr_Season_DreamingKudzu)
+                {
+                    double hundreds = Math.Floor(pr.charge / 100);
+                    if (hundreds > 0)
+                        habMod -= (float)(hundreds * Pr_Season_DreamingKudzu.habitabilityMultPerHundred);
+                }
+
             }
-            return base.hexHabitability(hex, hab);
+            return base.hexHabitability(hex, hab) + habMod;
+        }
+
+        public override void onPersonDeath_EndOfProcess(Person person, string v, object killer)
+        {
+            base.onPersonDeath_EndOfProcess(person, v, killer);
+
+            if (person.traits.Any(t => t is T_Season_VerdantImmortality))
+            {
+                if (person.getLocation().isOcean == false)
+                {
+
+                    string oldName = person.getName();
+
+                    UAE_Season_GardenNymph nymph = new UAE_Season_GardenNymph(person.getLocation(), person.map.soc_dark, person);
+                    person.map.units.Add(nymph);
+                    nymph.location.units.Add(nymph);
+                    person.isDead = false;
+
+                    for (int i = 0; i < person.getLocation().properties.Count; i++)
+                    {
+                        if (person.getLocation().properties[i] is Pr_FallenHuman soul)
+                        {
+                            if (soul.personIndex == person.index)
+                            {
+                                person.getLocation().properties.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+
+                    person.getLocation().map.addUnifiedMessage(nymph, null, "Verdant Rebirth", "A day after " + oldName + "'s death, a massive flower sprouts in " + person.getLocation().getName() + "'s outskirts. The bloom unfurls, revealing a creature cloaked in leaves and appearing almost human. In many ways her nature is new and strange, but the eldritch god's psychic presence is the same as ever, and her immortal life will be spent in furtherance of the work.\n\n" + oldName + " has been reborn as a Garden Nymph.", "VERDANT REBIRTH");
+                }
+            }
         }
     }
 }

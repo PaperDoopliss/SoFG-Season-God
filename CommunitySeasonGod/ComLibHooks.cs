@@ -28,14 +28,12 @@ namespace CommunitySeasonGod
             {
                 int unitMod = 0;
 
-                if (playerControlledUnits.Any(u => u is UAE_Supplicant))
+                foreach (Unit u in playerControlledUnits)
                 {
-                    unitMod--;
+                    if (u is UAE_Supplicant || u is UAE_Season_GardenNymph || u is UAE_Season_PaleKnight)
+                        unitMod--;
                 }
-                if (playerControlledUnits.Any(u => u is UAE_Season_PaleKnight))
-                {
-                    unitMod--;
-                }
+
 
                 return recruitmentCapUsed + unitMod;
             }
