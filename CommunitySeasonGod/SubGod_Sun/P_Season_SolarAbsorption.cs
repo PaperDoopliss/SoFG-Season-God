@@ -57,7 +57,7 @@ namespace CommunitySeasonGod
 
         public override int getCost()
         {
-            return 0;
+            return 1;
         }
 
         public override void cast(Location loc)
