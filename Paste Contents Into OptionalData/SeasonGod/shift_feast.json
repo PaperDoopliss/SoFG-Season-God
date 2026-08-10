@@ -14,7 +14,7 @@
 	"choices": [
 		{
 			"name": "The Lord of the Feast",
-			"description":"The Lord of the Feast imbues target heroes and rulers with Feyblood, which empowers them and makes them more aggressive and gold-hungry. They can then be manipulated through powers to bring ruin to their neighbours.",
+			"description":"The Lord of the Feast imbues target heroes and rulers with Feyblood, which empowers them and makes them more aggressive and gold-hungry. Feyblood will naturally trickle down to vassals if it targets a ruler, and the Prepare Spoils power can be used to guide along who they invade. Feyblood characters are not inherently aligned to you, and tend to grow in power, so it is important to make sure they remain corrupted by other means.",
 			"outcomes": [
 				{
 					"weight": 0.8,

@@ -23,7 +23,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Spend 25% Fey Presence to add 50% Spoils of War to a location. Spoils of War increases <b>prosperity</b> by its charge, but makes Feyblood sovereigns and orc horrdes more likely to invade them.";
+            return "Spend 25% Fey Presence to add 50% Spoils of War to a location. Spoils of War increases <b>prosperity</b> by its charge, but makes Feyblood sovereigns and orc hordes more likely to invade them.";
         }
 
         public override string getFlavour()

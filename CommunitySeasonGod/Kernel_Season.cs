@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace CommunitySeasonGod
 {
-
+    //WILDFIRE REMAKE, SOLAR ENTITY, CREDITS
     public class Kernel_Season : ModKernel
     {
 
@@ -32,6 +32,7 @@ namespace CommunitySeasonGod
         public static int opt_harvestEnabled = 1;
         public static int opt_feastEnabled = 1;
         public static int opt_bloomEnabled = 1;
+        public static int opt_sunEnabled = 1;
 
         public bool HasHostileShift = false;
 
@@ -48,6 +49,8 @@ namespace CommunitySeasonGod
                     return opt_feastEnabled;
                 case SubGod_Bloom _:
                     return opt_bloomEnabled;
+                case SubGod_Sun _:
+                    return opt_sunEnabled;
                 default:
                     return 0;
             }
@@ -62,6 +65,7 @@ namespace CommunitySeasonGod
         {
             _kernel = this;
             UAEN_Season_GreatOrc.populateGreatOrc();
+            UAEN_SolEntity.populateSolEntity();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);
@@ -72,6 +76,7 @@ namespace CommunitySeasonGod
         {
             _kernel = this;
             UAEN_Season_GreatOrc.populateGreatOrc();
+            UAEN_SolEntity.populateSolEntity();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);
@@ -130,6 +135,9 @@ namespace CommunitySeasonGod
                     break;
                 case "Enable: Niece of Blooming Fields":
                     opt_bloomEnabled = value;
+                    break;
+                case "Enable: Patriarch of the Sun":
+                    opt_sunEnabled = value;
                     break;
             }
         }
@@ -373,6 +381,34 @@ namespace CommunitySeasonGod
                     person.getLocation().map.addUnifiedMessage(nymph, null, "Verdant Rebirth", "A day after " + oldName + "'s death, a massive flower sprouts in " + person.getLocation().getName() + "'s outskirts. The bloom unfurls, revealing a creature cloaked in leaves and appearing almost human. In many ways her nature is new and strange, but the eldritch god's psychic presence is the same as ever, and her immortal life will be spent in furtherance of the work.\n\n" + oldName + " has been reborn as a Garden Nymph.", "VERDANT REBIRTH");
                 }
             }
+        }
+
+        public override int onAgentAttackAboutToBePerformed(AgentCombatInterface attacker, UA me, UA them, PopupBattleAgent battle, int dmg, int row)
+        {
+            int damageToReflect = 0;
+            if (them.person != null)
+            {
+                foreach (Trait t in them.person.traits)
+                {
+                    if (t is T_SolEntity_SunCloak)
+                        damageToReflect += T_SolEntity_SunCloak.reflection;
+                }
+                for (int i = 0; i < them.person.items.Count(); i++)
+                {
+                    if (them.person.items[i] is I_Season_IdolofSolus)
+                        damageToReflect += I_Season_IdolofSolus.reflection;
+                }
+            }
+
+            if (damageToReflect > 0)
+            {
+                battle.battle.addMessage(me.getName() + " takes " + damageToReflect + " reflected damage", new float[3] { 1f, 0.8f, 0f });
+
+                me.hp -= damageToReflect;
+            }
+
+
+            return base.onAgentAttackAboutToBePerformed(attacker, me, them, battle, dmg, row);
         }
     }
 }

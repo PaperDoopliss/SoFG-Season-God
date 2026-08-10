@@ -99,6 +99,11 @@ namespace CommunitySeasonGod
                 SubGods.Add(new SubGod_Bloom(this, map));
             }
 
+            if (Kernel_Season.opt_sunEnabled > 0)
+            {
+                SubGods.Add(new SubGod_Sun(this, map));
+            }
+
             _genericPowers.Add(new P_Stasis(map));
             _genericPowerLevelReqs.Add(2);
             _genericPowers.Add(new P_HostileShift(map));
@@ -292,6 +297,9 @@ namespace CommunitySeasonGod
         public override void awaken()
         {
             base.awaken();
+
+            if (ActiveSubGod != null)
+                ActiveSubGod.Awaken();
         }
 
         public override string getAwakenMessage()
@@ -300,7 +308,7 @@ namespace CommunitySeasonGod
             {
                 return ActiveSubGod.GetAwakeningMessage();
             }
-            return "Generic awakening message!";
+            return "";
         }
 
         public override string getVictoryMessage(int victoryMode)
@@ -311,19 +319,19 @@ namespace CommunitySeasonGod
             switch (victoryMode)
             {
                 case 0:
-                    return "Generic shadow win!";
+                    return "";
                 case 1:
-                    return "Generic madness win!";
+                    return "";
                 case 2:
-                    return "Generic Dark Empire win!";
+                    return "";
                 case 3:
-                    return "Generic destruction win!";
+                    return "";
                 case 4:
-                    return "Generic ice age win!";
+                    return "";
                 case 5:
-                    return "Generic Deep Ones win!";
+                    return "";
                 default:
-                    return "Generic win from a strange VP source!";
+                    return "";
             };
         }
 

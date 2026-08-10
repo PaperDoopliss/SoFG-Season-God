@@ -19,31 +19,62 @@
 ==============================
 =========== Images ===========
 ==============================
+File Name(s): event_dreaming_kudzu.jpg
+Title: The Interior of the Palm House on the Pfaueninsel Near Potsdam
+Artist(s): Carl Blechen
+Date: 1834
+License: Public Domain
+
+File Name(s): event_pale_knight_dead.jpg
+Title: Seven Fat and Seven Lean Cows
+Artist(s): Unknown
+Date: Possibly 1500s
+Source: https://collection.barnesfoundation.org/objects/7920/Seven-Fat-and-Seven-Lean-Cows/
+License: Public Domain
+
+File Name(s): event_shift_bloom.jpg
+Title: View of Vétheuil
+Artist(s): Claude Monet
+Date: 1880
+License: Public Domain
+
+File Name(s): event_shift_feast.jpg
+Title: A Roman Feast
+Artist(s): Roberto Bompiani
+Date: Late 19th Century
+License: Public Domain
+
+File Name(s): event_shift_sun.jpg
+Title: Encampment of the Aulad-Sa'id at Mount Sinai
+Artist(s): Louis Haghe after David Roberts
+Date: 1849
+License: Public Domain
+
+File Name(s): event_shift_wind.jpg
+Title: Coming Storm
+Artist(s): Pierre Georgres Jeanniot
+Date: 1905
+License: Public Domain
+
 File Name(s): Icon_AmicableShift.jpg
 Title: Herfst in Oirase
 Artist(s): Kawase Hasui and Watanabe Shozaburo
 Date: 1933
 Source: https://www.rawpixel.com/image/16111000/image-paper-plant-person
-License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/
+License: Public Domain
 
 File Name(s): Icon_HostileShift.jpg
 Title: Joshua Commanding the Sun to Stand Still
 Artist: John Martin
 Date: 1816
 Source: https://www.rawpixel.com/image/9202730/joshua-commanding-the-sun-stand-still
-License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/
+License: Public Domain
 
 File Name: Icon_Stasis.jpg
 Title: A View of a Lake in the Mountains
 Artist: George Caleb Bingham
 Date: circa 1856-1859
-License: CC0 1.0 Universal - https://creativecommons.org/publicdomain/zero/1.0/
-
-File Name: god_background.jpg
-Title: Season God (Preliminary Sketch)
-Artist: Discord community member Padex (padex)
-Date: 
-License: Voluntarily created for and donated to the Community Season God
+License: Public Domain
 
 File Name: Icon_FeyPresence_Background.png
 Title: 
@@ -51,8 +82,31 @@ Artist: Discord community member Precipi (precipitationnation)
 Date: 
 License: Voluntarily created for and donated to the Community Season God
 
-File Name: 
+File Name: item_idol_of_solus.png
 Title: 
-Artist: 
+Artist: Discord community member Precipi (precipitationnation)
 Date: 
-License: 
+License: Voluntarily created for and donated to the Community Season God
+
+File Name: unit_solar_entity.png
+Title: 
+Artist: Discord community member Precipi (precipitationnation)
+Date: 
+License: Voluntarily created for and donated to the Community Season God
+
+God Backgrounds and Portraits
+Title: 
+Artist: Discord community member Padex (padex)
+Date: 
+License: Voluntarily created for and donated to the Community Season God
+
+Supplicant Portraits
+Title: 
+Artist: Discord community member Padex (padex)
+Date: 
+License: Voluntarily created for and donated to the Community Season God
+
+Other Icons:
+Adapted from the Poneti and Dragonsan Asset Packs
+License (Poneti): Standard License (purchased by Doopliss, all art adapted directly by Doopliss)
+License (Dragonsan): Single Entity (purchased by Doopliss, all art adapted directly by Doopliss)

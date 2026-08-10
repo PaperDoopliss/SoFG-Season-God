@@ -114,7 +114,7 @@ namespace CommunitySeasonGod
             }
             else
             {
-                person.map.addUnifiedMessage(person, null, "Feyblood Spreads", person.getName() + " has been touched by the Pale Knight and infused with a hint of his wild, gluttonous nature. They gain liking for Ambition and Cruelty, and may perform unique actions if they rule a settlement.", "FEYBLOOD SPREADS");
+                person.map.addUnifiedMessage(person, null, "Feyblood Spreads", person.getName() + " has been touched by the Pale Knight and infused with a hint of his insatiable nature. They gain liking for Ambition and Cruelty, and may perform unique actions if they rule a settlement.", "FEYBLOOD SPREADS");
             }
         }
 

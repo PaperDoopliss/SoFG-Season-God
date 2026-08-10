@@ -14,7 +14,7 @@
 	"choices": [
 		{
 			"name": "The Painter of Winds",
-			"description":"The Painter of Winds places Wind Currents on the map that generate Fey Presence in a direction of your choice, and can be modified to spread shadow and negative modifiers downwind as she awakens. You can build long chains of Wind Currents to blanket entire regions in shadow, chaos, and destruction.",
+			"description":"The Painter of Winds places Wind Currents on the map that generate Fey Presence in a direction of your choice, and can be modified to spread shadow and negative modifiers downwind as she awakens. You can build long chains of Wind Currents to blanket entire regions in shadow, chaos, and destruction, but these effects consume Fey Presence over time, so establishing Fey Presence in the area is an early priority.",
 			"outcomes": [
 				{
 					"weight": 0.8,

@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 namespace CommunitySeasonGod
 {
@@ -41,7 +39,6 @@ namespace CommunitySeasonGod
         public override void turnTickAI()
         {
             Kernel_Season.ComLibKernel.GetAgentAI().turnTickAI(this);
-
         }
 
         public static void populateGreatOrc()
@@ -49,39 +46,20 @@ namespace CommunitySeasonGod
 
             List<AIChallenge> list = new List<AIChallenge>();
             list.Add(new AIChallenge(typeof(Rt_Season_GreatOrcRaiding), 0.0, new List<AIChallenge.ChallengeTags>
-        {
-            /*AIChallenge.ChallengeTags.BaseValid,
-            AIChallenge.ChallengeTags.BaseValidFor,*/
-        }, safeMove: false, supportSubtypes: true));
-            list.Add(new AIChallenge(typeof(Ch_RecruitMinion), 0.0, new List<AIChallenge.ChallengeTags>
-        {
-            AIChallenge.ChallengeTags.RequiresOwnSociety,
-            AIChallenge.ChallengeTags.RecruitsMinion
-        }, safeMove: false, supportSubtypes: true));
-            list.Add(new AIChallenge(typeof(Ch_Rest_InOrcCamp), 0.0, new List<AIChallenge.ChallengeTags>
-        {
-            AIChallenge.ChallengeTags.RequiresOwnSociety,
-            AIChallenge.ChallengeTags.HealOrc,
-            AIChallenge.ChallengeTags.Rest
+        { 
         }, safeMove: false, supportSubtypes: true));
 
-            AgentAI.ControlParameters orcParams = new AgentAI.ControlParameters(true);
-            orcParams.considerAllRituals = true;
+
+            AgentAI.ControlParameters geratOrcParams = new AgentAI.ControlParameters(true);
+            geratOrcParams.considerAllRituals = true;
+            geratOrcParams.valueTimeCost = true; //This will automatically make them more inclined to do it in closer locations than further ones
 
             List<AIChallenge> list2 = list;
             list2[0].delegates_Utility.Add(delegate_Utility_Rt_Season_GreatOrcRaiding);
             list2[0].delegates_Valid.Add(delegate_Valid_Rt_Season_GreatOrcRaiding);
             list2[0].delegates_ValidFor.Add(delegate_ValidFor_Rt_Season_GreatOrcRaiding);
-            list2[1].delegates_Valid.Add(delegate_Valid_Ch_RecruitMinion);
-            list2[2].delegates_Utility.Add(delegate_Utility_Ch_Rest_InOrcCamp);
-            ModCore.Get().GetAgentAI().RegisterAgentType(typeof(UAEN_Season_GreatOrc), /*new AgentAI.ControlParameters(isDark: true)*/orcParams);
+            ModCore.Get().GetAgentAI().RegisterAgentType(typeof(UAEN_Season_GreatOrc), geratOrcParams);
             ModCore.Get().GetAgentAI().AddChallengesToAgentType(typeof(UAEN_Season_GreatOrc), list2);
-            //if (ModCore.Get().GetAgentAI().TryGetAgentType(typeof(UAEN_Season_GreatOrc), out var aiData))
-            //{
-                //aiData?.aiChallenges_UniversalDelegates_ValidFor.Add(universalDelegate_ValidFor_Underground);
-            //}
-
-
 
         }
 
@@ -110,28 +88,6 @@ namespace CommunitySeasonGod
         {
             return true;
         }
-
-        private static bool delegate_Valid_Ch_RecruitMinion(AgentAI.ChallengeData challengeData)
-        {
-            return true;
-        }
-
-        private static double delegate_Utility_Ch_Rest_InOrcCamp(AgentAI.ChallengeData challengeData, UA ua, double utility, List<ReasonMsg> reasonMsgs)
-        {
-            utility -= (double)ua.map.param.ch_rest_parameterValue1;
-            utility += 1.0;
-            if (reasonMsgs != null)
-            {
-                ReasonMsg reasonMsg = reasonMsgs.FirstOrDefault((ReasonMsg m) => m.msg == "Base");
-                if (reasonMsg != null)
-                {
-                    reasonMsg.value = 1.0;
-                }
-            }
-
-            return utility;
-        }
-
 
         /*private void populateDeepOne()
         {

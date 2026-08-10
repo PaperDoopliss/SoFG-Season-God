@@ -71,6 +71,9 @@ namespace CommunitySeasonGod
         //If blank, a generic contextual message displays if this SubGod is active upon victory
         public virtual string GetVictoryMessage(int victoryMode) { return ""; }
 
+        //If blank, awakening has no special effects.
+        public virtual void Awaken() { }
+
         #region Supplkicant
         public virtual Sprite GetSupplicantSprite()
         {

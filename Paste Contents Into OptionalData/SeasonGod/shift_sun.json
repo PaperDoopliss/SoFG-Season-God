@@ -1,0 +1,27 @@
+{
+	"id": "ComSeasonGod.shift_sun",
+	"modCredit": "",
+	"imgCredit": "Encampment of the Aulad-Sa'id at Mount Sinai. Coloured lithograph by Louis Haghe after David Roberts, 1849",
+	"image": "ComSeasonGod.event_shift_sun.jpg",
+	
+	"type": "INERT",
+	"conditional": "1=1",
+	"probability": 0,
+
+	"name": "The Dry Season",
+	"description": "The light turns harsh and blinding as the Patriarch of the Sun emerges. The dessicating heat withers plant life, dries water sources, and drives humanity into the world's dark corners. Under the Patriarch's mad gaze, all the land becomes a pile of tinder awaiting a spark.",
+
+	"choices": [
+		{
+			"name": "The Patriarch of the Sun",
+			"description":"The Patriarch of the Sun can passively increase the world's temperature, as well as spreading Devastation using the Wildfire power. Wildfires also produce Ashen Lands, which can be used as fuel to empower your agents or spread shadow. Starting a Wildfire requires huge amounts of Fey Presence in one location, so you will likely need to plan ahead if you want to make use of Wildfires.",
+			"outcomes": [
+				{
+					"weight": 0.8,
+					"effects": [
+					]
+				}
+			]
+		}
+	]
+}

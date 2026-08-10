@@ -52,6 +52,22 @@
 			"minValue":0,
 			"maxValue":3,
 			"defaultValue":1
+		},
+		{
+			"name":"Enable: Patriarch of the Sun",
+			"description":"A Fey Noble who crushes humanity under sweltering heat, destabilizes them through devastation, and spreads massive wildfires across the land. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
+			"isInteger":"true",
+			"minValue":0,
+			"maxValue":3,
+			"defaultValue":1
+		},
+		{
+			"name":"Enable: Uncle of the Harvest",
+			"description":"(NOT CURRENTLY IMPLEMENTED) A Fey Noble whose agents harvest Fey Presence from the land and use it to fuel occult rituals. (default: 1)\n 0 - Not enabled\n1 - Enabled\n2 - Only appears randomly\n3 - Only appears if selected",
+			"isInteger":"true",
+			"minValue":0,
+			"maxValue":3,
+			"defaultValue":0
 		}
 	]
 }

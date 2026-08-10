@@ -23,7 +23,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Upon gaining this trait, gain 2 rare items.";
+            return "Upon gaining this trait, gain one rare item and one common item.";
         }
 
         public override void onAcquire(Person person)
@@ -36,7 +36,7 @@ namespace CommunitySeasonGod
                 {
                     Pr_ItemCache cache = new Pr_ItemCache(person.unit.location);
                     cache.items[0] = Item.getItemFromPool2(person.map);
-                    cache.items[2] = Item.getItemFromPool2(person.map);
+                    cache.items[2] = Item.getItemFromPool1(person.map);
                     person.unit.location.properties.Add(cache);
 
                     person.map.world.prefabStore.popItemTrade(person, cache);
