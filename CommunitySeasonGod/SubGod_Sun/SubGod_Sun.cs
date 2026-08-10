@@ -21,31 +21,31 @@ namespace CommunitySeasonGod
             PowerLevelReqs.Add(0);
 
             Powers.Add(new P_Season_SunsEmbrace(map));
-            PowerLevelReqs.Add(/*1*/0);
+            PowerLevelReqs.Add(1);
 
             Powers.Add(new P_Season_Wildfire(map));
-            PowerLevelReqs.Add(/*2*/0);
+            PowerLevelReqs.Add(2);
 
             Powers.Add(new P_Season_FertilizingAsh(map));
-            PowerLevelReqs.Add(/*3*/0);
+            PowerLevelReqs.Add(3);
 
             Powers.Add(new P_Season_AshCloud(map));
-            PowerLevelReqs.Add(/*4*/0);
+            PowerLevelReqs.Add(4);
 
             Powers.Add(new P_Season_SunEntity(map));
-            PowerLevelReqs.Add(/*5*/0);
+            PowerLevelReqs.Add(5);
 
             Powers.Add(new P_Season_SolarAbsorption(map));
-            PowerLevelReqs.Add(/*6*/0);
+            PowerLevelReqs.Add(6);
 
             Powers.Add(new P_Season_IdolOfSolus(map));
-            PowerLevelReqs.Add(/*7*/0);
+            PowerLevelReqs.Add(7);
 
             Powers.Add(new P_Season_AshenCircles(map));
-            PowerLevelReqs.Add(/*8*/0);
+            PowerLevelReqs.Add(8);
 
             Powers.Add(new P_Season_HeatWave(map));
-            PowerLevelReqs.Add(/*9*/0);
+            PowerLevelReqs.Add(9);
 
             BonusPowers.Add(new P_Season_FrenziedPrayers(map));
             BonusPowerLevelReqs.Add(0);

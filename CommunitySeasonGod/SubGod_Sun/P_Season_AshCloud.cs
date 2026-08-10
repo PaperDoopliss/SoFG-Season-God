@@ -60,7 +60,7 @@ namespace CommunitySeasonGod
 
         public override int getCost()
         {
-            return 0/*3*/;
+            return 3;
         }
 
         public void convertAshIntoShadow(Location loc)

@@ -46,7 +46,7 @@ namespace CommunitySeasonGod
 
         public override int getCost()
         {
-            return /*4*/0;
+            return 0;
         }
 
         public override Sprite getIconFore()
