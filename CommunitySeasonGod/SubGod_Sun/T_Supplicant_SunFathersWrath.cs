@@ -66,7 +66,7 @@ namespace CommunitySeasonGod
             {
                 if (l.isOcean == false)
                 {
-                    Property.addToProperty("Sun-Father's Wrath", Property.standardProperties.DEVASTATION, devastationInLocation, l);
+                    Property.addToProperty("Sun-Father's Wrath", Property.standardProperties.DEVASTATION, devastationInNeighbours, l);
                 }
             }
 
