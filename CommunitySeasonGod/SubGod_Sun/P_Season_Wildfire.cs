@@ -16,8 +16,8 @@ namespace CommunitySeasonGod
     public class P_Season_Wildfire : P_Season
     {
 
-        public static double presenceCost = 150;
-        public static double presenceCutoff = 250;
+        public static double presenceCost = 100;
+        public static double presenceCutoff = 150;
         public static double startingCharge = 200;
 
         public P_Season_Wildfire(Map map) : base(map) { }
@@ -30,7 +30,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Spends " + presenceCost + "% Fey Presence to create a Wildfire modifier at " + startingCharge + " charge which increases by " + Pr_Season_Wildfire.increasePerTurn + "%, to a maximum of 300%. If the Wildfire has " + Pr_Season_Wildfire.devastationCutoff + "% charge or more, Devastation will increase by the same amount, to a maximum of the Wildfire's charge. If the location has Fey Presence of at least " + Pr_Season_Wildfire.presenceCutoff + ", the Wildfire will switch to burning Fey Presence, doubling the speed of its growth and converting " + Pr_Season_Wildfire.presenceBurnedPerTurn + "% Fey Presence a turn into Ashen Earth until the Fey Presence is entirely gone. Once in this Wildfire's lifetime, if its charge is at least " + Pr_Season_Wildfire.spreadCutoff + ", it can spread to a neighbouring location that has a Plains, Grass, Jungle, Highland, or Forest on its hex. Heroes within 3 links will be motivated to fight the fire if its charge is at least 100, and heroes within 7 links will be motivated to fight the fire if its charge is at least 200. After " + Pr_Season_Wildfire.startingCooldown + " combined turns where the Wildfire's charge is below " + Pr_Season_Wildfire.burnoutCutoff + "% or at 300%, the Wildfire will begin dying down, decreasing by " + Pr_Season_Wildfire.burnoutPerTurn + "% instead of increasing.";
+            return "Spends " + presenceCost + "% Fey Presence to create a Wildfire modifier at " + startingCharge + " charge which increases by " + Pr_Season_Wildfire.increasePerTurn + "%, to a maximum of 300%. If the Wildfire has " + Pr_Season_Wildfire.devastationCutoff + "% charge or more, Devastation will increase by the same amount, to a maximum of the Wildfire's charge. If there is Fey Presence at the location, the Wildfire will double the speed of its growth and convert " + Pr_Season_Wildfire.presenceBurnedPerTurn + "% Fey Presence a turn into Ashen Earth. Once in this Wildfire's lifetime, if its charge is at least " + Pr_Season_Wildfire.spreadCutoff + ", it can spread to a neighbouring location that has a Plains, Grass, Jungle, Highland, or Forest on its hex. Heroes within 3 links will be motivated to fight the fire if its charge is at least 100, and heroes within 7 links will be motivated to fight the fire if its charge is at least 200. After " + Pr_Season_Wildfire.startingCooldown + " combined turns where the Wildfire's charge is below " + Pr_Season_Wildfire.burnoutCutoff + "% or at 300%, the Wildfire will begin dying down, decreasing by " + Pr_Season_Wildfire.burnoutPerTurn + "% instead of increasing.";
         }
 
         public override string getFlavour()
@@ -40,7 +40,7 @@ namespace CommunitySeasonGod
 
         public override string getRestrictionText()
         {
-            return "Must target a location whose hex has either Forest or Plains, and has at least " + presenceCutoff + " Fey Presence.";
+            return "Must target a location whose hex has either Forest, Grass or Plains, and has at least " + presenceCutoff + " Fey Presence.";
         }
 
         public override Sprite getIconFore()
@@ -57,7 +57,7 @@ namespace CommunitySeasonGod
                 {
                     if (prop.charge >= presenceCutoff)
                     {
-                        if (loc.hex.terrain == Hex.terrainType.PLAINS || loc.hex.isForest)
+                        if (loc.hex.terrain == Hex.terrainType.PLAINS || loc.hex.isForest || loc.hex.terrain == Hex.terrainType.GRASS)
                             return true;
                     }
                 }
