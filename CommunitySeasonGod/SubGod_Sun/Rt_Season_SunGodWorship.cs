@@ -10,7 +10,7 @@ namespace CommunitySeasonGod
 {
     public class Rt_Season_SunGodWorship : Ritual
     {
-        public static float temperatureToAdd = 0.05f;
+        public static float temperatureToAdd = 0.03f;
         public static double presenceToAdd = 5;
 
         public Rt_Season_SunGodWorship(Location loc) : base(loc)
@@ -25,7 +25,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "Increases temperature at an Elven Settlement, a Farming Community, or a location on top of a forest hex, as well as its neighbours, by " + temperatureToAdd * 100 + "%";
+            return "Increases temperature at an Elven Settlement, a Farming Community, or a location on top of a forest hex, as well as its neighbours, by " + temperatureToAdd * 100 + "%. If the location is an Elven settlement, the location also gains " + presenceToAdd + " Fey Presence.";
         }
 
         public override string getCastFlavour()
