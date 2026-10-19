@@ -17,7 +17,7 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "The Supplicant spreads Fey Presence wherever he goes";
+            return "The Supplicant spreads Fey Presence wherever he goes.";
         }
 
         public override int getMaxLevel()
@@ -40,7 +40,7 @@ namespace CommunitySeasonGod
             pr_FeyPresence.charge = 5.0;
             p.unit.location.properties.Add(pr_FeyPresence);
         }
-
+        
         public override int[] getTags()
         {
             return new int[0];
