@@ -16,7 +16,16 @@ namespace CommunitySeasonGod
 
         public override string getDesc()
         {
-            return "The supplicant's precence pierces the veil between worlds, increasing the strength of local geomantic loci.";
+            return "The supplicant's presence pierces the veil between worlds. They start with the Mystic Bounty trait.";
+            //return "The supplicant's presence pierces the veil between worlds, increasing the strength of local geomantic loci.";
+        }
+
+        public override void onAcquire(Person person)
+        {
+            base.onAcquire(person);
+            T_MysticBounty bounty = new T_MysticBounty();
+            bounty.amount = 5;
+            person.receiveTrait(bounty);
         }
 
         public override int getMaxLevel()
@@ -24,7 +33,7 @@ namespace CommunitySeasonGod
             return 1;
         }
 
-        public override void turnTick(Person p)
+        /*public override void turnTick(Person p)
         {
             foreach (Property property in p.unit.location.properties)
             {
@@ -34,7 +43,7 @@ namespace CommunitySeasonGod
                     break;
                 }
             }
-        }
+        }*/
 
         public override int[] getTags()
         {

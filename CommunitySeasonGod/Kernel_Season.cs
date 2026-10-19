@@ -66,6 +66,9 @@ namespace CommunitySeasonGod
             _kernel = this;
             UAEN_Season_GreatOrc.populateGreatOrc();
             UAEN_SolEntity.populateSolEntity();
+            UAEN_Season_HarvestRevelerTierI.populateReveler();
+            UAEN_Season_HarvestRevelerTierII.populateReveler();
+            UAEN_Season_HarvestRevelerTierIII.populateReveler();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);
@@ -77,6 +80,9 @@ namespace CommunitySeasonGod
             _kernel = this;
             UAEN_Season_GreatOrc.populateGreatOrc();
             UAEN_SolEntity.populateSolEntity();
+            UAEN_Season_HarvestRevelerTierI.populateReveler();
+            UAEN_Season_HarvestRevelerTierII.populateReveler();
+            UAEN_Season_HarvestRevelerTierIII.populateReveler();
 
             GetModKernels(map);
             new ComLibHooks(ComLibKernel, map);

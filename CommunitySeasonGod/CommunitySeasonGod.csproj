@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="CommunityLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Other People's Mods\CommunityLib 2.0\CommunityLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1741640\2968835416\v2.0\CommunityLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,12 +46,18 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Shadows of Forbidden Gods\BaseGame\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -139,10 +145,42 @@
     <Compile Include="SubGod_Feast\UAE_Season_PaleKnight.cs" />
     <Compile Include="SubGod_Feast\UM_Season_FeyKnights.cs" />
     <Compile Include="SubGod_Feast\UM_Season_GolemArmy.cs" />
+    <Compile Include="SubGod_Harvest\Ch_Harvest_Revel.cs" />
+    <Compile Include="SubGod_Harvest\Pr_Season_RevelerHarvest.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_Harvest.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestBonus.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestFestival.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestHospitality.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestMysticBounty.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestMysticBountyTierII.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestOldFavour.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_HarvestVeilbreaker.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_RestlessAnticipation.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_RevelerTierI.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_RevelerTierII.cs" />
+    <Compile Include="SubGod_Harvest\P_Season_RevelerTierIII.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_AgentRevelryTierI_ArcaneSecret.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_AgentRevelryTierI_Disrupt.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_AgentRevelryTierI_GainXP.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_AgentRevelryTierI_Liking.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_BountyEnshadow.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_RevelerRevelingTierI.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_RevelerRevelingTierII.cs" />
+    <Compile Include="SubGod_Harvest\Rt_Season_RevelerRevelingTierIII.cs" />
+    <Compile Include="SubGod_Harvest\Set_HarvestFestival.cs" />
     <Compile Include="SubGod_Harvest\SubGod_Harvest.cs" />
+    <Compile Include="SubGod_Harvest\Sub_HarvestFestival.cs" />
     <Compile Include="SubGod_Harvest\T_JoyfulPresence.cs" />
     <Compile Include="SubGod_Harvest\T_MartyrOfRevelry.cs" />
+    <Compile Include="SubGod_Harvest\T_MysticBounty.cs" />
+    <Compile Include="SubGod_Harvest\T_UAEN_Reveler.cs" />
+    <Compile Include="SubGod_Harvest\T_UAEN_Reveler_Fey.cs" />
+    <Compile Include="SubGod_Harvest\T_UAEN_Reveler_Lingering.cs" />
+    <Compile Include="SubGod_Harvest\T_UAEN_Reveler_Lord.cs" />
     <Compile Include="SubGod_Harvest\T_VeilPiercer.cs" />
+    <Compile Include="SubGod_Harvest\UAEN_Season_HarvestRevelerTierI.cs" />
+    <Compile Include="SubGod_Harvest\UAEN_Season_HarvestRevelerTierII.cs" />
+    <Compile Include="SubGod_Harvest\UAEN_Season_HarvestRevelerTierIII.cs" />
     <Compile Include="SubGod_Sun\Ch_Season_DouseFlames.cs" />
     <Compile Include="SubGod_Sun\Ch_SolEntity_AddTinder.cs" />
     <Compile Include="SubGod_Sun\Ch_SolEntity_Sun-GodWorship.cs" />
