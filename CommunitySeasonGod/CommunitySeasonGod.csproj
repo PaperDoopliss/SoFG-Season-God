@@ -50,14 +50,14 @@
       <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Shadows of Forbidden Gods\BaseGame\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>D:\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>D:\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\ForbiddenGods\Projects\SoFG-Season-God-main\References\2_0\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\Program Files\Steam\steamapps\common\Shadows of Forbidden Gods\ShadowsOfForbiddenGods_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
